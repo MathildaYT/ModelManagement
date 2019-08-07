@@ -7,16 +7,21 @@ public class EditController : MonoBehaviour
 {
     public InputField modelName;
     public Dropdown modelType;
-    public Button addModelBtn;
+    public Button openModelBtn;
     public InputField modelContent;
     public Button confirmAddBtn;
-    public Button importModelBtn;
+    public Button exportModelBtn;
     public Text tips;
     private ModelType type;
+    public string path;
+    public string name;
     // Start is called before the first frame update
     void Start()
     {
-        
+       openModelBtn.onClick.AddListener(OpenModelFile);
+        //confirmAddBtn.onClick.AddListener();
+        //exportModelBtn.onClick.AddListener();
+
     }
 
     // Update is called once per frame
@@ -42,9 +47,11 @@ public class EditController : MonoBehaviour
         ModelDataManager.GetInstance.AddModel(modelName.text,modelContent.text,type,out tip);
         tips.text = tip;
     }
-    public void Brower()
+    public void OpenModelFile()
     {
+        FileOperation.OpenSingleFile(out path, out name, "FBX");
 
+        FileOperation.CopyFile(path,Constant.GetModelFullPath(name));
     }
 
 }

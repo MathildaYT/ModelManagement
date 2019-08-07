@@ -183,4 +183,9 @@ public class FileOperation
 
         return findnames.ToArray();
     }
+
+    static public void CopyFile(string source, string target)
+    {
+        File.Copy(source,target);
+    }
 }

@@ -22,7 +22,7 @@ public class Test : MonoBehaviour
     }
     public void Click()
     {
-       // FileOperation.OpenSingleFile(out path, out name, "FBX");
-        FileOperation.OpenFilesPath(out path);
+        FileOperation.OpenSingleFile(out path, out name, "FBX");
+        //FileOperation.OpenFilesPath(out path);
     }
 }

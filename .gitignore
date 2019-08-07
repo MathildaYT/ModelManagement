@@ -5,3 +5,5 @@ ShipModelManagement/Assembly-CSharp-Editor.csproj
 ShipModelManagement/ShipModelManagement.sln
 ShipModelManagement/.vs/
 ShipModelManagement/Logs/
+ShipModelManagement/Temp/bin/Debug/System.Drawing.dll
+ShipModelManagement/Temp/
