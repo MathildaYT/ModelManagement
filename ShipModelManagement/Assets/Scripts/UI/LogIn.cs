@@ -40,7 +40,7 @@ public class LogIn : MonoBehaviour
         //跳转
         if (ret)
         {
-            SceneManager.LoadScene(Constant.ModelRegisterName);
+            SceneManager.LoadScene(Constant.ModelViewSceneName);
         }
     }
     public void Register()

@@ -9,6 +9,7 @@ public class Constant
     public const string ModelRegisterName ="ModelRegister";
     public const string ModelLibraryName ="ModelLibrary";
     public const string ModelViewerName ="ModelShow";
+    public const string ModelViewSceneName = "ModelViewScene";
 
     //public const string LoginSceneName = "SampleScene";
     public static string GetModelPath()
