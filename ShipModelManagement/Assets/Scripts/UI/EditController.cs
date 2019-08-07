@@ -10,7 +10,7 @@ public class EditController : MonoBehaviour
     public Button openModelBtn;
     public InputField modelContent;
     public Button confirmAddBtn;
-    public Button exportModelBtn;
+   // public Button exportModelBtn;
     public Text tips;
     private ModelType type;
     public string path;
@@ -19,8 +19,8 @@ public class EditController : MonoBehaviour
     void Start()
     {
        openModelBtn.onClick.AddListener(OpenModelFile);
-        //confirmAddBtn.onClick.AddListener();
-        //exportModelBtn.onClick.AddListener();
+       confirmAddBtn.onClick.AddListener(AddModelMsg);
+      // exportModelBtn.onClick.AddListener(ExportModelFile);
 
     }
 
@@ -46,12 +46,17 @@ public class EditController : MonoBehaviour
         string tip;
         ModelDataManager.GetInstance.AddModel(modelName.text,modelContent.text,type,out tip);
         tips.text = tip;
+        FileOperation.CopyFile(path,Constant.GetModelFullPath(name));
     }
     public void OpenModelFile()
     {
         FileOperation.OpenSingleFile(out path, out name, "FBX");
 
-        FileOperation.CopyFile(path,Constant.GetModelFullPath(name));
     }
+    //public void ExportModelFile()
+    //{
+    //    FileOperation.OpenSingleFile(out path, out name, "FBX");
+    //    FileOperation.CopyFile(Constant.GetModelFullPath(name),path);
 
+    //}
 }
