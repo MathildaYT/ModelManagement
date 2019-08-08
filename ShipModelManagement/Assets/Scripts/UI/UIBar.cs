@@ -1,8 +1,8 @@
 ﻿#region 描述
 //-----------------------------------------------------------------------------
-// 类 名 称: ShowModelWindow
+// 类 名 称: UIBar
 // 作    者：zhangfan
-// 创建时间：2019/8/1 11:07:51
+// 创建时间：2019/8/8 10:43:18
 // 描    述：
 // 版    本：
 //-----------------------------------------------------------------------------
@@ -16,19 +16,22 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-public class ShowModelWindow : UIWindow
+public class UIBar
 {
-    public override void OnOpen(params object[] datas)
+    protected Transform _transform;
+    public void OnInit(string name)
     {
-        base.OnOpen();
-
-        Debug.Log("open ShowModelWindow");
+        var obj = GameObject.Instantiate(Resources.Load("UI/Bar/" + name)) as GameObject;
+        _transform = obj.transform;
     }
 
-    public override void OnClose()
+    virtual public void OnOpen()
     {
-        base.OnClose();
+        _transform.gameObject.SetActive(true);
+    }
 
-        Debug.Log("close ShowModelWindow");
+    virtual public void OnClose()
+    {
+        _transform.gameObject.SetActive(false);
     }
 }

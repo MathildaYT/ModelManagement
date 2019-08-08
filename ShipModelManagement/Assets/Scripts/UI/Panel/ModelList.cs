@@ -1,23 +1,11 @@
-﻿#region 描述
-//-----------------------------------------------------------------------------
-// 类 名 称: ModelListView
-// 作    者：zhangfan
-// 创建时间：2019/8/1 10:37:38
-// 描    述：
-// 版    本：
-//-----------------------------------------------------------------------------
-// Copyright (C) 2017-2019 零境科技有限公司
-//-----------------------------------------------------------------------------
-#endregion
-using System;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ModelListEdit : UIPanel
+public class ModelList : UIPanel
 {
     InputField InputName;
     Dropdown DropModelType;
@@ -43,7 +31,7 @@ public class ModelListEdit : UIPanel
         DropModelType.ClearOptions();
         var names = Enum.GetNames(typeof(ModelType));
         var namelist = new List<string>();
-        foreach(var n in names)
+        foreach (var n in names)
         {
             namelist.Add(n);
         }

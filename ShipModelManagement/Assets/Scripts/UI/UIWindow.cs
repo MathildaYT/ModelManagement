@@ -26,7 +26,7 @@ public class UIWindow
         _transform.parent = parent;
     }
 
-    virtual public void OnOpen()
+    virtual public void OnOpen(params object[] datas)
     {
         _transform.gameObject.SetActive(true);
     }

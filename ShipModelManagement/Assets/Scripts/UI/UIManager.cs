@@ -74,4 +74,52 @@ public class UIManager
             lastpanel.OnOpen();
         }
     }
+    public UIPanel CurrentPanel()
+    {
+        if (_backstack.Count > 0)
+        {
+            return _backstack.Peek();
+        }
+
+        return null;
+    }
+    //---------------------------------------------------
+    protected Dictionary<string, UIBar> _bars = new Dictionary<string, UIBar>();
+    UIBar _currentbar;
+    public T OpenBar<T>() where T : UIBar, new()
+    {
+        var uiname = typeof(T).Name;
+        if (!_bars.ContainsKey(uiname))
+        {
+            var bar = new T();
+
+            bar.OnInit(uiname);
+            bar.OnOpen();
+
+            _bars.Add(uiname, bar);
+
+            _currentbar = bar;
+            return bar;
+        }
+        var ret = _bars[uiname];
+        ret.OnOpen();
+
+        _currentbar = ret;
+        return ret as T;
+    }
+
+    public void CloseBar<T>()
+    {
+        var uiname = typeof(T).Name;
+        if (_bars.ContainsKey(uiname))
+        {
+            _bars[uiname].OnClose();
+            _currentbar = null;
+        }
+    }
+
+    public UIBar CurrentBar()
+    {
+        return _currentbar;
+    }
 }
