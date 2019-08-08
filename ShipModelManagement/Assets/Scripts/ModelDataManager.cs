@@ -1,7 +1,9 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ModelDaTaCache
 {
@@ -136,5 +138,25 @@ public class ModelDataManager
         //var m = new ModelDaTaCache();
         //m.modelName = "55";
         //AlterModel(m);
+    }
+    public void ShowModelContent(string name,out string content)
+    {
+        content = "";
+        var check = DBInitController.GetInstance.DB.CheckTable<ModelData>();
+        if (!check)
+        {
+            return;
+        }
+        var datas = DBInitController.GetInstance.DB.GetData<ModelData>();
+        var d = datas.Where(x => x.modelName == name).FirstOrDefault();
+        if (d != null)
+        {
+            content = d.modelContent;
+        }
+    }
+
+    internal void ShowModel(string name, Text modelContent)
+    {
+        throw new NotImplementedException();
     }
 }
