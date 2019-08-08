@@ -32,7 +32,7 @@ public class ModelAlter : UIPanel
         confirmAlterBtn = _transform.Find("AltermodelBtn").GetComponent<Button>();
         modelPath = _transform.Find("InputPath").GetComponent<InputField>();
         wordPath = _transform.Find("InputWordPath").GetComponent<InputField>();
-        backBtn = _transform.Find("BackBtn").GetComponent<Button>();
+        //backBtn = _transform.Find("BackBtn").GetComponent<Button>();
         confirmAlterBtn.onClick.AddListener(ConfirmAlter);
         openModelBtn.onClick.AddListener(OpenModelFile);
       //  confirmAddBtn.onClick.AddListener(SaveModelMsg);
