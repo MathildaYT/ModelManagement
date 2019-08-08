@@ -11,6 +11,7 @@ public class ModelDelete:UIWindow
     public Button cancelBtn;
     public Button closeBtn;
     string name;
+   
     public override void OnOpen(params object[] datas)
     {
         base.OnOpen();
