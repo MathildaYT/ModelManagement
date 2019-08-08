@@ -5,6 +5,7 @@ using UnityEngine;
 
 public enum ModelType
 {
+    NUll,
     TypeOne,
     TypeTwo,
     TypeThree
@@ -15,6 +16,7 @@ public class ModelData
     public string modelName { get; set; }
     public string modelContent { get; set; }
     public ModelType modelType { get; set; }
+    public string modelPath { get; set; }
     public override string ToString()
     {
         return string.Format("[Data: modelName={0},modelContent={1}]", modelName,modelContent);

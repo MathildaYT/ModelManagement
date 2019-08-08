@@ -16,6 +16,10 @@ public class Constant
     {
         return Application.streamingAssetsPath + "/model/";
     }
+    public static string GetModelPath(string name)
+    {
+        return Application.streamingAssetsPath + "/model/"+name;
+    }
     public static string GetModelFullPath(string filename)
     {
         return string.Format("{0}/{1}.FBX", Application.streamingAssetsPath + "/model/",filename) ;
