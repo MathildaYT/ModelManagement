@@ -9,7 +9,7 @@ public class ModelShow : UIWindow
     public UniFBXImport uniFBXImport;
     public Text modelContent;
     public Button closeBtn;
-    public override void OnOpen()
+    public override void OnOpen(params object[] datas)
     {
         base.OnOpen();
         modelContent = _transform.Find("Canvas/ShowPanel/Content").GetComponent<Text>();
