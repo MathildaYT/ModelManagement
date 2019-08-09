@@ -30,7 +30,7 @@ public class ModelListEdit : UIPanel
     ModelType _selectModelType;
     string _findname;
 
-    public override void OnOpen()
+    public override void OnOpen(params object[] datas)
     {
         base.OnOpen();
         //-----------------------------------------

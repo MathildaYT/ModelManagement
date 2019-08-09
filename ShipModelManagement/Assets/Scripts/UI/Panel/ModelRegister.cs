@@ -18,11 +18,9 @@ public class ModelRegister : UIPanel
     public string path;
     public string name;
 
-    public override void OnOpen()
+    public override void OnBegin()
     {
-        base.OnOpen();
-
-        Debug.Log("open ModelRegister");
+        base.OnBegin();
 
         modelName = _transform.Find("InputName").GetComponent<InputField>();
         modelType = _transform.Find("modelType").GetComponent<Dropdown>();
@@ -36,6 +34,19 @@ public class ModelRegister : UIPanel
         confirmAddBtn.onClick.AddListener(SaveModelMsg);
         backBtn.onClick.AddListener(Back);
     }
+    public override void OnOpen(params object[] datas)
+    {
+        base.OnOpen();
+
+        Debug.Log("open ModelRegister");
+
+        modelName.text = "";
+        modelContent.text = "";
+        modelType.value = 0;
+        path = "";
+        name = "";
+        type = ModelType.TypeOne;
+}
 
     public override void OnClose()
     {
@@ -48,13 +59,19 @@ public class ModelRegister : UIPanel
     {
         string tip;
         ModelDataManager.GetInstance.AddModel(modelName.text, modelContent.text, type, out tip);
-        tips.text = tip;
+        //tips.text = tip;
+        Debug.Log(tip);
+        OpenWindow<ConfirmWnd>(tip);
     }
     public void OpenModelFile()
     {
         FileOperation.OpenSingleFile(out path, out name, "FBX");
 
-        FileOperation.CopyFile(path, Constant.GetModelFullPath(name));
+        if(path != "")
+        {
+            FileOperation.CopyFile(path, Constant.GetModelFullPath(name));
+        }
+        
     }
     public void Back()
     {

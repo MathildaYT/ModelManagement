@@ -18,7 +18,7 @@ public class UIManager
 
     Stack<UIPanel> _backstack = new Stack<UIPanel>();
 
-    public T Open<T>() where T : UIPanel, new()
+    public T Open<T>(params object[] datas) where T : UIPanel, new()
     {
         var uiname = typeof(T).Name;
         if (!_UIlist.ContainsKey(uiname))
@@ -27,7 +27,7 @@ public class UIManager
 
             uipanel.OnInit(uiname);
 
-            uipanel.OnOpen();
+            uipanel.OnOpen(datas);
 
             _UIlist[uiname] = uipanel;
 
@@ -41,7 +41,7 @@ public class UIManager
             return uipanel;
         }
         var retpanel = _UIlist[uiname];
-        retpanel.OnOpen();
+        retpanel.OnOpen(datas);
 
         if(_backstack.Count > 0)
         {

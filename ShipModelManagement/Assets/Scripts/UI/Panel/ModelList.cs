@@ -13,20 +13,27 @@ public class ModelList : UIPanel
     Toggle HasTxt;
     ScrollRect ScrollView;
 
-    bool _hasModel;
-    bool _hasTxt;
-    ModelType _selectModelType;
-    string _findname;
+    GameObject _ModelDataPrefab;
 
-    public override void OnOpen()
+    bool _hasModel = true;
+    bool _hasTxt = true;
+    ModelType _selectModelType = ModelType.NUll;
+    string _findname = "";
+
+    public override void OnBegin()
     {
-        base.OnOpen();
+        base.OnBegin();
+
         //-----------------------------------------
         ScrollView = _transform.Find("Scroll View").GetComponent<ScrollRect>();
         InputName = _transform.Find("InputName").GetComponent<InputField>();
         DropModelType = _transform.Find("ModelType").GetComponent<Dropdown>();
         HasModel = _transform.Find("HasModel").GetComponent<Toggle>();
         HasTxt = _transform.Find("HasTxt").GetComponent<Toggle>();
+
+        _ModelDataPrefab = ScrollView.content.GetChild(0).gameObject;
+        _ModelDataPrefab.SetActive(false);
+        _ModelDataPrefab.transform.parent = null;
         //-----------------------------------------
         DropModelType.ClearOptions();
         var names = Enum.GetNames(typeof(ModelType));
@@ -36,6 +43,15 @@ public class ModelList : UIPanel
             namelist.Add(n);
         }
         DropModelType.AddOptions(namelist);
+    }
+
+    public override void OnOpen(params object[] datas)
+    {
+        base.OnOpen();
+        
+        //-----------------------------------------
+        //init
+        ClearUI();
         //-----------------------------------------
         ShowModelList();
         //-----------------------------------------
@@ -46,6 +62,19 @@ public class ModelList : UIPanel
         HasModel.onValueChanged.AddListener(OnEnableModelName);
 
         HasTxt.onValueChanged.AddListener(OnEnableText);
+    }
+
+    private void ClearUI()
+    {
+        InputName.text = "";
+        DropModelType.value = 0;
+        HasModel.isOn = true;
+        HasTxt.isOn = true;
+
+        _hasModel = true;
+        _hasTxt = true;
+        _selectModelType = ModelType.NUll;
+        _findname = "";
     }
 
     public override void OnClose()
@@ -60,12 +89,56 @@ public class ModelList : UIPanel
         if (DBInitController.GetInstance.DB.CheckTable<ModelData>())
         {
             var datas = DBInitController.GetInstance.DB.GetData<ModelData>();
-            var res = datas.Where((x => (_hasModel ^ x.modelName.Contains(_findname) && x.modelType == _selectModelType)));
-            //datas1.Where();
-            foreach (var r in res)
+            if(_findname!= null && _findname != "")
             {
-                Debug.Log(r.ToString());
+                //var res = datas.Where((x => (_hasModel ^ x.modelName.Contains(_findname) && x.modelType == _selectModelType)));
+                //IEnumerable<ModelData> res;
+                if (_hasModel)
+                {
+                    datas = datas.Where(x => x.modelPath != "");
+                }
+                datas = datas.Where(x => x.modelName.Contains(_findname));
+                datas = datas.Where(x => x.modelType == _selectModelType);
+                if(_hasTxt)
+                {
+                    datas = datas.Where(x => x.modelContent != "");
+                }
+                //datas1.Where();
+                //delete
+                List<GameObject> templist = new List<GameObject>();
+                while (ScrollView.content.childCount > 0)
+                {
+                    var child = ScrollView.content.GetChild(0);
+                    
+                    //GameObject.Destroy(child);
+                    child.gameObject.SetActive(false);
+
+                    child.parent = null;
+                    templist.Add(child.gameObject);
+                }
+
+                for(int i=0;i< templist.Count; ++i)
+                {
+                    GameObject.Destroy(templist[i]);
+                }
+                templist.Clear();
+                //add
+                foreach (var r in datas)
+                {
+                    Debug.Log(r.ToString());
+                    //ScrollView.content
+                    var obj = GameObject.Instantiate(_ModelDataPrefab);
+                    obj.transform.parent = ScrollView.content;
+                    obj.SetActive(true);
+
+                    var datactrl = obj.GetComponent<ModelDataController>();
+                    datactrl.Name.text = r.modelName;
+                    datactrl.ModelName = r.modelName;
+                    datactrl.Type.text = Enum.GetName(typeof(ModelType), r.modelType);
+                    //datactrl.WordPath = r.
+                }
             }
+            
         }
     }
 

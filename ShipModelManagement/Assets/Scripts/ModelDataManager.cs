@@ -53,7 +53,7 @@ public class ModelDataManager
         data.modelContent = modelMsg;
         data.modelType = modelType;
         DBInitController.GetInstance.DB.CreateData(data);
-        tips = "";
+        tips = "录入成功";
     }
     public void ShowModel(string modelname, out string modelMsg, out ModelType modelType)
     {

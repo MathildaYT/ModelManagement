@@ -19,7 +19,7 @@ public class ModelAlter : UIPanel
     public string path;
     public string name;
     private ModelDaTaCache data;
-    public override void OnOpen()
+    public override void OnOpen(params object[] datas)
     {
         base.OnOpen();
 

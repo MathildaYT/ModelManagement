@@ -1,8 +1,8 @@
 ﻿#region 描述
 //-----------------------------------------------------------------------------
-// 类 名 称: ModelListView
+// 类 名 称: ConfirmWnd
 // 作    者：zhangfan
-// 创建时间：2019/8/1 10:37:38
+// 创建时间：2019/8/9 17:54:00
 // 描    述：
 // 版    本：
 //-----------------------------------------------------------------------------
@@ -15,20 +15,26 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class ModelListView : UIPanel
+public class ConfirmWnd : UIWindow
 {
+    private Button _confirmbtn;
+    private Text _content;
+
     public override void OnOpen(params object[] datas)
     {
-        base.OnOpen();
+        base.OnOpen(datas);
 
-        Debug.Log("open ModelListView");
+        _confirmbtn = _transform.Find("Confirm").gameObject.GetComponent<Button>();
+        _content = _transform.Find("Word").gameObject.GetComponent<Text>();
+
+        _confirmbtn.onClick.AddListener(OnClose);
+        _content.text = datas[0].ToString();
     }
 
     public override void OnClose()
     {
         base.OnClose();
-
-        Debug.Log("close ModelListView");
     }
 }

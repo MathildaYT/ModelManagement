@@ -23,6 +23,8 @@ public class ModelEditBar : UIBar
         _selectpanels.ClearOptions();
         _selectpanels.AddOptions(_panels);
 
+        _selectpanels.value = 1;
+
         _selectpanels.onValueChanged.AddListener(OnSelectPanel);
     }
 

@@ -26,9 +26,15 @@ abstract public class UIPanel
     {
         var obj = GameObject.Instantiate(Resources.Load("UI/" + name)) as GameObject;
         _transform = obj.transform;
+        OnBegin();
     }
 
-    virtual public void OnOpen()
+    virtual public void OnBegin()
+    {
+
+    }
+
+    virtual public void OnOpen(params object[] datas)
     {
         _transform.gameObject.SetActive(true);
     }
@@ -42,7 +48,7 @@ abstract public class UIPanel
         }
     }
 
-    public T OpenWindow<T>() where T : UIWindow, new()
+    public T OpenWindow<T>(params object[] datas) where T : UIWindow, new()
     {
         var uiname = typeof(T).Name;
         if(!_windows.ContainsKey(uiname))
@@ -50,14 +56,14 @@ abstract public class UIPanel
             var window = new T();
 
             window.OnInit(uiname, _transform);
-            window.OnOpen();
+            window.OnOpen(datas);
 
             _windows.Add(uiname, window);
 
             return window;
         }
         var ret = _windows[uiname];
-        ret.OnOpen();
+        ret.OnOpen(datas);
         return ret as T;
     }
 
