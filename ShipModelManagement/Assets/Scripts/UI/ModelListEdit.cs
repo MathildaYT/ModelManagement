@@ -65,6 +65,21 @@ public class ModelListEdit : UIPanel
         base.OnClose();
     }
 
+    override public void SendMessage(params object[] objects)
+    {
+        if(objects.Length == 0)
+        {
+            if(objects[0].GetType() == typeof(string))
+            {
+                var funcname = objects[0].ToString();
+                if (funcname == "update")
+                {
+                    ShowModelList();
+                }
+            }
+        }
+    }
+
     private void ShowModelList()
     {
         var content = ScrollView.content;

@@ -75,4 +75,8 @@ abstract public class UIPanel
             _windows[uiname].OnClose();
         }
     }
+
+    virtual public void SendMessage(params object[] objects)
+    {
+    }
 }
