@@ -79,4 +79,17 @@ public class UserManager
             Debug.Log(d.ToString());
         }
     }
+    public void DeleteAllUser()
+    {
+        var check = DBInitController.GetInstance.DB.CheckTable<MsgData>();
+        if (!check)
+        {
+            return;
+        }
+        var datas = DBInitController.GetInstance.DB.GetData<MsgData>();
+        foreach (var item in datas)
+        {
+            DBInitController.GetInstance.DB.DeleteData<MsgData>(item);
+        }
+    }
 }
