@@ -5,7 +5,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ModelList : UIPanel
+public class ModelEdit : UIPanel
 {
     InputField InputName;
     Dropdown DropModelType;
@@ -48,7 +48,7 @@ public class ModelList : UIPanel
     public override void OnOpen(params object[] datas)
     {
         base.OnOpen();
-        
+
         //-----------------------------------------
         //init
         ClearUI();
@@ -89,7 +89,7 @@ public class ModelList : UIPanel
         if (DBInitController.GetInstance.DB.CheckTable<ModelData>())
         {
             var datas = DBInitController.GetInstance.DB.GetData<ModelData>();
-            if(_findname!= null && _findname != "")
+            if (_findname != null && _findname != "")
             {
                 //var res = datas.Where((x => (_hasModel ^ x.modelName.Contains(_findname) && x.modelType == _selectModelType)));
                 //IEnumerable<ModelData> res;
@@ -99,7 +99,7 @@ public class ModelList : UIPanel
                 }
                 datas = datas.Where(x => x.modelName.Contains(_findname));
                 datas = datas.Where(x => x.modelType == _selectModelType);
-                if(_hasTxt)
+                if (_hasTxt)
                 {
                     datas = datas.Where(x => x.modelContent != "");
                 }
@@ -109,7 +109,7 @@ public class ModelList : UIPanel
                 while (ScrollView.content.childCount > 0)
                 {
                     var child = ScrollView.content.GetChild(0);
-                    
+
                     //GameObject.Destroy(child);
                     child.gameObject.SetActive(false);
 
@@ -117,7 +117,7 @@ public class ModelList : UIPanel
                     templist.Add(child.gameObject);
                 }
 
-                for(int i=0;i< templist.Count; ++i)
+                for (int i = 0; i < templist.Count; ++i)
                 {
                     GameObject.Destroy(templist[i]);
                 }
@@ -138,7 +138,7 @@ public class ModelList : UIPanel
                     //datactrl.WordPath = r.
                 }
             }
-            
+
         }
     }
 

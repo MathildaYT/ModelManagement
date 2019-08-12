@@ -16,9 +16,9 @@ public class ModelEditBar : UIBar
         _selectpanels = _transform.Find("SelectPanel").gameObject.GetComponent<Dropdown>();
 
         _panels.Clear();
+        _panels.Add("模型录入");
         _panels.Add("模型编辑");
         _panels.Add("模型查看");
-        _panels.Add("模型录入");
 
         _selectpanels.ClearOptions();
         _selectpanels.AddOptions(_panels);
@@ -39,17 +39,17 @@ public class ModelEditBar : UIBar
         {
             case 0:
                 {
-                    UIManager.getInstance.Open<ModelAlter>();
+                    UIManager.getInstance.Open<ModelRegister>();
                 }
                 break;
             case 1:
                 {
-                    UIManager.getInstance.Open<ModelList>();
+                    UIManager.getInstance.Open<ModelEdit>();
                 }
                 break;
             case 2:
                 {
-                    UIManager.getInstance.Open<ModelRegister>();
+                    UIManager.getInstance.Open<ModelLook>();
                 }
                 break;
         }

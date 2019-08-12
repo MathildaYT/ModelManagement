@@ -17,6 +17,7 @@ public class ModelRegister : UIPanel
     private ModelType type;
     public string path;
     public string name;
+    string tip;
 
     public override void OnBegin()
     {
@@ -57,7 +58,6 @@ public class ModelRegister : UIPanel
 
     public void SaveModelMsg()
     {
-        string tip;
         ModelDataManager.GetInstance.AddModel(modelName.text, modelContent.text, type, out tip);
         //tips.text = tip;
         Debug.Log(tip);
@@ -67,7 +67,7 @@ public class ModelRegister : UIPanel
     {
         FileOperation.OpenSingleFile(out path, out name, "FBX");
 
-        if(path != "")
+        if(!ModelDataManager.GetInstance.IsHasModel(modelName.text,out tip) &&path != "")
         {
             FileOperation.CopyFile(path, Constant.GetModelFullPath(name));
         }

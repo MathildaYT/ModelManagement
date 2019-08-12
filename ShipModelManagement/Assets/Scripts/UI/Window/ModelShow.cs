@@ -9,9 +9,11 @@ public class ModelShow : UIWindow
     public UniFBXImport uniFBXImport;
     public Text modelContent;
     public Button closeBtn;
+    GameObject model;
     public override void OnOpen(params object[] datas)
     {
         base.OnOpen();
+        uniFBXImport.GetComponent<UniFBXImport>();
         modelContent = _transform.Find("Canvas/ShowPanel/Content").GetComponent<Text>();
         closeBtn = _transform.Find("Canvas/ShowPanel/CloseBtn").GetComponent<Button>();
         LoadModel();
@@ -21,6 +23,7 @@ public class ModelShow : UIWindow
     public override void OnClose()
     {
         base.OnClose();
+        DeleteModel();
     }
     public void LoadModel()
     {
@@ -28,5 +31,21 @@ public class ModelShow : UIWindow
         uniFBXImport.setting.paths.urlTextures = Constant.GetModelTexPath();
         uniFBXImport.setting.paths.filename = name;
         uniFBXImport.Load();
+        MonoHelper.StartCoroutine(WaitForLoad());
+    }
+    IEnumerator WaitForLoad()
+    {
+        while (!uniFBXImport.IsDone)
+        {
+            yield return null;
+        }
+        model= uniFBXImport.GetObject();
+    }
+    void DeleteModel()
+    {
+        if (model!=null)
+        {
+            GameObject.Destroy(model);
+        }
     }
 }

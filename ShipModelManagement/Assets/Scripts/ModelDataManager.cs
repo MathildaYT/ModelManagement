@@ -55,6 +55,23 @@ public class ModelDataManager
         DBInitController.GetInstance.DB.CreateData(data);
         tips = "录入成功";
     }
+    public bool IsHasModel(string model,out string tips)
+    {
+        tips = "";
+        var check = DBInitController.GetInstance.DB.CheckTable<ModelData>();
+        if (!check)
+        {
+            DBInitController.GetInstance.DB.CreateTable<ModelData>();
+        }
+        var datas = DBInitController.GetInstance.DB.GetData<ModelData>();
+        var d = datas.Where(x => x.modelName == model).FirstOrDefault();
+        if (d != null)
+        {
+            tips = "该模型已经存在";
+            return true;
+        }
+        return false;
+    }
     public void ShowModel(string modelname, out string modelMsg, out ModelType modelType)
     {
         modelMsg = "";
