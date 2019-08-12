@@ -1614,7 +1614,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0.0000055232385}
+  m_AnchoredPosition: {x: 0, y: 0.000018347368}
   m_SizeDelta: {x: 0, y: 20}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &6094819530302937628
@@ -1837,11 +1837,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f2e8470600b61843aaffb4536e702c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Name: {fileID: 0}
-  Type: {fileID: 0}
-  Word: {fileID: 0}
-  Alter: {fileID: 0}
-  Delete: {fileID: 0}
+  Name: {fileID: 6094819530871100919}
+  Type: {fileID: 6094819530191754071}
+  Word: {fileID: 6094819530373270305}
+  browse: {fileID: 6094819531342697309}
+  export: {fileID: 6094819530176311447}
   ModelName: 
   WordPath: 
 --- !u!1 &6094819530373270307
@@ -2544,7 +2544,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 6094819531575784129}
   m_Direction: 2
   m_Value: 0
-  m_Size: 0.99993336
+  m_Size: 0.999991
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:

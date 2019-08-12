@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class ModelAlter : UIPanel
 {
-    public InputField modelName;
+    public InputField model;
     public Dropdown modelType;
     public Button openModelBtn;
     public InputField modelContent;
@@ -19,13 +19,11 @@ public class ModelAlter : UIPanel
     public string path;
     public string name;
     private ModelDaTaCache data;
-    public override void OnOpen(params object[] datas)
+
+    public override void OnBegin()
     {
-        base.OnOpen();
-
-        Debug.Log("open ModelAlter");
-
-        modelName = _transform.Find("InputName").GetComponent<InputField>();
+        base.OnBegin();
+        model= _transform.Find("InputName").GetComponent<InputField>();
         modelType = _transform.Find("modelType").GetComponent<Dropdown>();
         openModelBtn = _transform.Find("OpenModelBtn").GetComponent<Button>();
         modelContent = _transform.Find("InputContent").GetComponent<InputField>();
@@ -35,13 +33,23 @@ public class ModelAlter : UIPanel
         //backBtn = _transform.Find("BackBtn").GetComponent<Button>();
         confirmAlterBtn.onClick.AddListener(ConfirmAlter);
         openModelBtn.onClick.AddListener(OpenModelFile);
-      //  confirmAddBtn.onClick.AddListener(SaveModelMsg);
+        //  confirmAddBtn.onClick.AddListener(SaveModelMsg);
         modelType.onValueChanged.AddListener(ChangeType);
-        modelName.onValueChanged.AddListener(AlterName);
+        model.onValueChanged.AddListener(AlterName);
         modelContent.onValueChanged.AddListener(AlterContent);
+        data = new ModelDaTaCache();
+    }
+
+    public override void OnOpen(params object[] datas)
+    {
+        base.OnOpen();
+
+        Debug.Log("open ModelAlter");
+
+        string modelName=datas[0].ToString();
         //  backBtn.onClick.AddListener(Back);
         //  ShowModelMsg();
-        data = new ModelDaTaCache();
+        ShowModelMsg(modelName);
 
     }
     public override void OnClose()
@@ -53,7 +61,7 @@ public class ModelAlter : UIPanel
     public void SaveModelMsg()
     {
         string tip;
-        ModelDataManager.GetInstance.AddModel(modelName.text, modelContent.text, type, out tip);
+        ModelDataManager.GetInstance.AddModel(model.text, modelContent.text, type, out tip);
         tips.text = tip;
     }
     public void OpenModelFile()
@@ -75,6 +83,7 @@ public class ModelAlter : UIPanel
         type = mtype;
         modelType.value = (int)mtype;
         modelPath.text = Constant.GetModelPath(modelName);
+        model.text = modelName;
     }
     public void ConfirmAlter()
     {
@@ -103,7 +112,7 @@ public class ModelAlter : UIPanel
     }
     public void AlterName(string name)
     {
-        name = modelName.text;
+        name = model.text;
         data.modelName = name;
     }
     public void AlterContent(string content)

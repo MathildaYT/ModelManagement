@@ -11,8 +11,8 @@ public class OpenShowModel : MonoBehaviour
     public Text Name;
     public Text Type;
     public Button Word;
-    public Button Alter;
-    public Button Delete;
+    public Button browse;
+    public Button export;
 
     public string ModelName;
     public string WordPath;
@@ -20,20 +20,21 @@ public class OpenShowModel : MonoBehaviour
     private void Awake()
     {
         Word.onClick.AddListener(OnWord);
-        Alter.onClick.AddListener(OnAlter);
-        Delete.onClick.AddListener(OnDelete);
+        browse.onClick.AddListener(OnBrowse);
+        export.onClick.AddListener(OnExport);
     }
     void OnWord()
     {
         ;
     }
 
-    void OnAlter()
+    void OnBrowse()
     {
+        UIManager.getInstance.OpenWindow<ModelShow>(ModelName);
      
     }
 
-    void OnDelete()
+    void OnExport()
     {
         ;
     }

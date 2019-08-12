@@ -5,29 +5,33 @@ using UnityEngine.UI;
 
 public class ModelShow : UIWindow
 {
-    string name;
+   
     public UniFBXImport uniFBXImport;
     public Text modelContent;
     public Button closeBtn;
     GameObject model;
+    //string content;
     public override void OnOpen(params object[] datas)
     {
         base.OnOpen();
-        uniFBXImport.GetComponent<UniFBXImport>();
+        string modelName = datas[0].ToString();
+        uniFBXImport= _transform.GetComponent<UniFBXImport>();
         modelContent = _transform.Find("Canvas/ShowPanel/Content").GetComponent<Text>();
+        string content = "";
         closeBtn = _transform.Find("Canvas/ShowPanel/CloseBtn").GetComponent<Button>();
-        LoadModel();
-        ModelDataManager.GetInstance.ShowModel(name, modelContent);
+        ModelDataManager.GetInstance.ShowModelContent(modelName,out content);
+        modelContent.text = content;
         closeBtn.onClick.AddListener(OnClose);
+        LoadModel(modelName);
     }
     public override void OnClose()
     {
         base.OnClose();
         DeleteModel();
     }
-    public void LoadModel()
+    public void LoadModel(string name)
     {
-        uniFBXImport.setting.paths.urlModels = Constant.GetModelPath();
+        uniFBXImport.setting.paths.urlModels = Constant.GetModelPath(name);
         uniFBXImport.setting.paths.urlTextures = Constant.GetModelTexPath();
         uniFBXImport.setting.paths.filename = name;
         uniFBXImport.Load();

@@ -23,7 +23,7 @@ public class UIWindow
     {
         var obj = GameObject.Instantiate(Resources.Load("UI/window/" + name)) as GameObject;
         _transform = obj.transform;
-        _transform.parent = parent;
+        //_transform.parent = parent;
     }
 
     virtual public void OnOpen(params object[] datas)
