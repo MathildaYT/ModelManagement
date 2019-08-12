@@ -8,10 +8,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/LoginScene.unity
     guid: 6ff63f69ceb99af4eb03c3c6be953657
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/ModelRegister.unity
     guid: 460eb1156883b984cba437d854a57f35
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/ModelLibrary.unity
     guid: 40887dceff2237b43b32ee522529ef56
   - enabled: 1
@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/ModelViewScene.unity
     guid: 99f322ec56815a44899b70290b642469
+  - enabled: 1
+    path: Assets/Scenes/EntranceScene.unity
+    guid: fd84be484f570374b852d4b6225e8202
   m_configObjects: {}
