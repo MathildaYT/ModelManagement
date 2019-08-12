@@ -19,12 +19,14 @@ public class DBInitController : MonoBehaviour
     {
         DontDestroyOnLoad(this.gameObject);
         _instance = this;
-     
+
+        StartSync();
+
     }
     // Start is called before the first frame update
     void Start()
     {
-        StartSync();
+        
     }
 
     // Update is called once per frame
