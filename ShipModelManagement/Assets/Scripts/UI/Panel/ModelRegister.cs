@@ -10,13 +10,16 @@ public class ModelRegister : UIPanel
     public Button openModelBtn;
     public InputField modelContent;
     public Button confirmAddBtn;
-    public Button exportModelBtn;
+    public Button openWordBtn;
     public Button backBtn;
 
     public Text tips;
     private ModelType type;
     public string path;
     public string name;
+
+    private string wordpath;
+    private string wordname;
 
     public override void OnBegin()
     {
@@ -27,10 +30,11 @@ public class ModelRegister : UIPanel
         openModelBtn = _transform.Find("OpenModelBtn").GetComponent<Button>();
         modelContent = _transform.Find("InputContent").GetComponent<InputField>();
         confirmAddBtn = _transform.Find("AddmodelBtn").GetComponent<Button>();
-        //exportModelBtn = _transform.Find("ExportBtn").GetComponent<Button>();
+        openWordBtn = _transform.Find("OpenWordBtn").GetComponent<Button>();
         backBtn = _transform.Find("BackBtn").GetComponent<Button>();
 
         openModelBtn.onClick.AddListener(OpenModelFile);
+        openWordBtn.onClick.AddListener(OpenWordFile);
         confirmAddBtn.onClick.AddListener(SaveModelMsg);
         backBtn.onClick.AddListener(Back);
     }
@@ -59,6 +63,16 @@ public class ModelRegister : UIPanel
     {
         string tip;
         ModelDataManager.GetInstance.AddModel(modelName.text, modelContent.text, type, out tip);
+
+        if (path != "")
+        {
+            FileOperation.CopyFile(path, Constant.GetModelFullPath(name));
+        }
+
+        if (wordpath != "")
+        {
+            FileOperation.CopyFile(wordpath, Constant.GetModelFullPath(wordname));
+        }
         //tips.text = tip;
         Debug.Log(tip);
         OpenWindow<ConfirmWnd>(tip);
@@ -66,12 +80,12 @@ public class ModelRegister : UIPanel
     public void OpenModelFile()
     {
         FileOperation.OpenSingleFile(out path, out name, "FBX");
+    }
+    public void OpenWordFile()
+    {
+        FileOperation.OpenSingleFile(out wordpath, out wordname, "txt", "pdf", "doc", "docx");
 
-        if(path != "")
-        {
-            FileOperation.CopyFile(path, Constant.GetModelFullPath(name));
-        }
-        
+        Application.OpenURL(wordpath);
     }
     public void Back()
     {

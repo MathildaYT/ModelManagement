@@ -94,7 +94,7 @@ public class FileOperation
         exportPath = fullDirPath;
     }
 
-    public static void OpenSingleFile(out string filepath, out string filename, string ext)
+    public static void OpenSingleFile(out string filepath, out string filename, params string[] exts)
     {
         bool flag = false;
 
@@ -106,8 +106,24 @@ public class FileOperation
 
         ofn.structSize = Marshal.SizeOf(ofn);
 
-        var str = string.Format("files(*.{0})\0*.{1}\0files(*.{2})\0*.{3}\0", ext, ext, ext, ext);
-
+        var str = "files(*." + exts[0];
+        if(exts.Length > 1)
+        {
+            for (int i = 1; i < exts.Length; ++i)
+            {
+                str = string.Format(";{0}*.{1}", str, exts[i]);
+            }
+        }
+        
+        str = string.Format("{0})|*.{1}",str, exts[0]);
+        if (exts.Length > 1)
+        {
+            for (int i = 1; i < exts.Length; ++i)
+            {
+                str = string.Format(";{0}*.{1}", str, exts[i]);
+            }
+        }
+            
         ofn.filter = str;
 
         ofn.file = new string(new char[256]);
@@ -120,7 +136,16 @@ public class FileOperation
 
         ofn.initialDir = "c:\\"; //默认路径
 
-        ofn.defExt = ext;
+        string def = exts[0];
+        if(exts.Length > 1)
+        {
+            foreach (var d in exts)
+            {
+                def = string.Format("{0}||{1}", def, d);
+            }
+        }
+        
+        ofn.defExt = "txt";
 
         //注意 一下项目不一定要全选 但是0x00000008项不要缺少
         ofn.flags = 0x00080000 | 0x00001000 | 0x00000800 | 0x00000200 | 0x00000008;    //OFN_EXPLORER|OFN_FILEMUSTEXIST|OFN_PATHMUSTEXIST| OFN_ALLOWMULTISELECT|OFN_NOCHANGEDIR

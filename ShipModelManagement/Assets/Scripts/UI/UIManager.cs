@@ -122,4 +122,24 @@ public class UIManager
     {
         return _currentbar;
     }
+    //---------------------------------------------------
+    public T OpenWindow<T>(params object[] datas) where T : UIWindow, new()
+    {
+        var curpanel = CurrentPanel();
+        if (curpanel != null)
+        {
+            return curpanel.OpenWindow<T>(datas);
+        }
+
+        return null;
+    }
+
+    public void CloseWindow<T>()
+    {
+        var curpanel = CurrentPanel();
+        if (curpanel != null)
+        {
+            curpanel.CloseWindow<T>();
+        }
+    }
 }
