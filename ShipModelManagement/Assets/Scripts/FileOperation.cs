@@ -106,25 +106,35 @@ public class FileOperation
 
         ofn.structSize = Marshal.SizeOf(ofn);
 
+        //var str = string.Format("flie {0}(*.{1})|*.{2}", exts[0], exts[0], exts[0]);
+        //if(exts.Length > 1)
+        //{
+        //    for(int i=1;i<exts.Length;++i)
+        //    {
+        //        str = string.Format("{0}|flie {1}(*.{2})|*.{3}", str, exts[i], exts[i], exts[i]);
+        //    }
+        //}
         var str = "files(*." + exts[0];
-        if(exts.Length > 1)
-        {
-            for (int i = 1; i < exts.Length; ++i)
-            {
-                str = string.Format(";{0}*.{1}", str, exts[i]);
-            }
-        }
-        
-        str = string.Format("{0})|*.{1}",str, exts[0]);
         if (exts.Length > 1)
         {
             for (int i = 1; i < exts.Length; ++i)
             {
-                str = string.Format(";{0}*.{1}", str, exts[i]);
+                str = string.Format("{0};*.{1}", str, exts[i]);
             }
         }
-            
+
+        str = string.Format("{0})\0*.{1}", str, exts[0]);
+        if (exts.Length > 1)
+        {
+            for (int i = 1; i < exts.Length; ++i)
+            {
+                str = string.Format("{0};*.{1}", str, exts[i]);
+            }
+        }
+        //str += "\0All files (*.*)\0*.*";
         ofn.filter = str;
+
+        ofn.filterIndex = 1;
 
         ofn.file = new string(new char[256]);
 
@@ -135,17 +145,8 @@ public class FileOperation
         ofn.maxFileTitle = ofn.fileTitle.Length;
 
         ofn.initialDir = "c:\\"; //默认路径
-
-        string def = exts[0];
-        if(exts.Length > 1)
-        {
-            foreach (var d in exts)
-            {
-                def = string.Format("{0}||{1}", def, d);
-            }
-        }
         
-        ofn.defExt = "txt";
+        //ofn.defExt = null;
 
         //注意 一下项目不一定要全选 但是0x00000008项不要缺少
         ofn.flags = 0x00080000 | 0x00001000 | 0x00000800 | 0x00000200 | 0x00000008;    //OFN_EXPLORER|OFN_FILEMUSTEXIST|OFN_PATHMUSTEXIST| OFN_ALLOWMULTISELECT|OFN_NOCHANGEDIR

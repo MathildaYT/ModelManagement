@@ -66,12 +66,10 @@ public class ModelRegister : UIPanel
     public void OpenModelFile()
     {
         FileOperation.OpenSingleFile(out path, out name, "FBX");
-
         if(!ModelDataManager.GetInstance.IsHasModel(modelName.text,out tip) &&path != "")
         {
             FileOperation.CopyFile(path, Constant.GetModelFullPath(name));
         }
-        
     }
     public void Back()
     {
