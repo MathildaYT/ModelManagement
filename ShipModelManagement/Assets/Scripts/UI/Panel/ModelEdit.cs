@@ -43,6 +43,7 @@ public class ModelEdit : UIPanel
             namelist.Add(n);
         }
         DropModelType.AddOptions(namelist);
+
     }
 
     public override void OnOpen(params object[] datas)

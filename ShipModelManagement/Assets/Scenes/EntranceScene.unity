@@ -192,6 +192,7 @@ GameObject:
   - component: {fileID: 1333511425}
   - component: {fileID: 1333511426}
   - component: {fileID: 1333511428}
+  - component: {fileID: 1333511427}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -226,6 +227,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DBName: Lingjing2.db
+--- !u!114 &1333511427
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1333511424}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ec7866a4a978184493968d102af21e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1333511428
 MonoBehaviour:
   m_ObjectHideFlags: 0

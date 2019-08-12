@@ -5,24 +5,25 @@ using UnityEngine.UI;
 
 public class Test : MonoBehaviour
 {
-    public Button Import;
-    public string path;
-    public string name;
+
     // Start is called before the first frame update
     void Start()
     {
-
-        Import.onClick.AddListener(Click);
+        Debug.Log("Annie");
+        ModelDataManager.GetInstance.PrintAllModel();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+            ModelDataManager.GetInstance.DeleteAll();
+        }
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            UserManager.Instance.DeleteAllUser();
+        }
     }
-    public void Click()
-    {
-        FileOperation.OpenSingleFile(out path, out name, "FBX");
-        //FileOperation.OpenFilesPath(out path);
-    }
+
 }

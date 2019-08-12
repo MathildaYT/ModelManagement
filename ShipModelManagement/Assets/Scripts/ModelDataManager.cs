@@ -106,6 +106,20 @@ public class ModelDataManager
         }
 
     }
+    public void DeleteAll()
+    {
+        var check = DBInitController.GetInstance.DB.CheckTable<ModelData>();
+        if (!check)
+        {
+            return;
+        }
+        var datas = DBInitController.GetInstance.DB.GetData<ModelData>();
+        foreach (var item in datas)
+        {
+        DBInitController.GetInstance.DB.DeleteData<ModelData>(item);
+        }
+
+    }
     public void PrintAllModel()
     {
         var datas = DBInitController.GetInstance.DB.GetData<ModelData>();
