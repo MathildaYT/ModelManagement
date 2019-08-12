@@ -172,8 +172,5 @@ public class ModelDataManager
         }
     }
 
-    internal void ShowModel(string name, Text modelContent)
-    {
-        throw new NotImplementedException();
-    }
+    
 }

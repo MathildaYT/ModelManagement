@@ -128,7 +128,7 @@ public class ModelLook : UIPanel
                     obj.transform.parent = ScrollView.content;
                     obj.SetActive(true);
 
-                    var datactrl = obj.GetComponent<ModelDataController>();
+                    var datactrl = obj.GetComponent<OpenShowModel>();
                     datactrl.Name.text = r.modelName;
                     datactrl.ModelName = r.modelName;
                     datactrl.Type.text = Enum.GetName(typeof(ModelType), r.modelType);

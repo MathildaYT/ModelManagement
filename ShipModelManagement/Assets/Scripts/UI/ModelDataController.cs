@@ -39,11 +39,11 @@ public class ModelDataController : MonoBehaviour
 
     void OnAlter()
     {
-        UIManager.getInstance.Open<ModelAlter>();
+        UIManager.getInstance.Open<ModelAlter>(ModelName);
     }
 
     void OnDelete()
     {
-        ;
+        UIManager.getInstance.OpenWindow<ModelDeleteWnd>(ModelName);
     }
 }

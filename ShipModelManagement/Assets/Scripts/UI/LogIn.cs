@@ -36,6 +36,14 @@ public class LogIn : MonoBehaviour
     {
         string log;
         var ret=UserManager.Instance.LogIn(_user.text,_Psd.text,out log);
+        //if (CommonMethod.IsAllChinese(_user.text))
+        //{
+        //    if (ret)
+        //    {
+        //        SceneManager.LoadScene(Constant.ModelViewSceneName);
+
+        //    }
+        //} 
         Tips.text = log;
         //跳转
         if (ret)

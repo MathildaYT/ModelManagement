@@ -5,30 +5,31 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine.UI;
 
-public class ModelDelete:UIWindow
+public class ModelDeleteWnd:UIWindow
 {
     public Button confirmDeleteBtn;
     public Button cancelBtn;
     public Button closeBtn;
-    string name;
    
     public override void OnOpen(params object[] datas)
     {
         base.OnOpen();
-        confirmDeleteBtn = _transform.Find("ComfirmBtn").GetComponent<Button>();
-        cancelBtn = _transform.Find("CancelBtn").GetComponent<Button>();
-        closeBtn = _transform.Find("closeBtn").GetComponent<Button>();
+        string name = datas[0].ToString();
+        confirmDeleteBtn = _transform.Find("DeletePanel/ComfirmBtn").GetComponent<Button>();
+        cancelBtn = _transform.Find("DeletePanel/CancelBtn").GetComponent<Button>();
+        closeBtn = _transform.Find("DeletePanel/CloseBtn").GetComponent<Button>();
         closeBtn.onClick.AddListener(OnClose);
-        confirmDeleteBtn.onClick.AddListener(DeleteModel);
+        confirmDeleteBtn.onClick.AddListener(delegate { DeleteModel(name);});
         cancelBtn.onClick.AddListener(OnClose);
     }
     public override void OnClose()
     {
         base.OnClose();
     }
-    public void DeleteModel()
+    public void DeleteModel(string name)
     {
         ModelDataManager.GetInstance.DeleteModel(name);
+        OnClose();
     }
     
 }
