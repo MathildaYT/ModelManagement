@@ -86,7 +86,7 @@ public class ModelLook : UIPanel
         if (DBInitController.GetInstance.DB.CheckTable<ModelData>())
         {
             var datas = DBInitController.GetInstance.DB.GetData<ModelData>();
-            if (_findname != null && _findname != "")
+            if (_findname != null)
             {
                 //var res = datas.Where((x => (_hasModel ^ x.modelName.Contains(_findname) && x.modelType == _selectModelType)));
                 //IEnumerable<ModelData> res;
@@ -94,11 +94,19 @@ public class ModelLook : UIPanel
                 {
                     datas = datas.Where(x => x.modelPath != "");
                 }
-                datas = datas.Where(x => x.modelName.Contains(_findname));
-                datas = datas.Where(x => x.modelType == _selectModelType);
+                if(_findname != "")
+                {
+                    datas = datas.Where(x => x.modelName.Contains(_findname));
+                }
+                
+                if(_selectModelType != ModelType.NUll)
+                {
+                    datas = datas.Where(x => x.modelType == _selectModelType);
+                }
+                
                 if (_hasTxt)
                 {
-                    datas = datas.Where(x => x.modelContent != "");
+                    datas = datas.Where(x => x.Wordpath != "");
                 }
                 //datas1.Where();
                 //delete
@@ -119,6 +127,10 @@ public class ModelLook : UIPanel
                     GameObject.Destroy(templist[i]);
                 }
                 templist.Clear();
+
+                int numdata = 0;
+                float everyheight = _ModelDataPrefab.GetComponent<RectTransform>().sizeDelta.y;
+                var verticalgroup = ScrollView.content.gameObject.GetComponent<VerticalLayoutGroup>();
                 //add
                 foreach (var r in datas)
                 {
@@ -133,7 +145,11 @@ public class ModelLook : UIPanel
                     datactrl.ModelName = r.modelName;
                     datactrl.Type.text = Enum.GetName(typeof(ModelType), r.modelType);
                     //datactrl.WordPath = r.
+                    numdata++;
                 }
+
+                var contenttrans = ScrollView.content.transform.gameObject.GetComponent<RectTransform>();
+                contenttrans.sizeDelta = new Vector2(contenttrans.sizeDelta.x, numdata * (everyheight + verticalgroup.spacing) + 5);
             }
 
         }

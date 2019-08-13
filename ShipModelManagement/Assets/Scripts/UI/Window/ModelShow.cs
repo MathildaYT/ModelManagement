@@ -51,8 +51,20 @@ public class ModelShow : UIWindow
         model= uniFBXImport.GetObject();
         if(model != null)
         {
-            model.layer = 9;
+            SetGameObjectLayer(model, 9);
+
             model.transform.position = showpos.position;
+
+            model.transform.rotation = showpos.rotation;
+        }
+    }
+    private void SetGameObjectLayer(GameObject trans, int layer)
+    {
+        trans.layer = layer;
+        for (int i=0;i< trans.transform.childCount;++i)
+        {
+            var child = trans.transform.GetChild(i);
+            SetGameObjectLayer(child.gameObject, layer);
         }
     }
     void DeleteModel()
