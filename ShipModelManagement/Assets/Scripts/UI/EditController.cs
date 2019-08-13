@@ -44,8 +44,8 @@ public class EditController : MonoBehaviour
     public void AddModelMsg()
     {
         string tip;
-        ModelDataManager.GetInstance.AddModel(modelName.text,modelContent.text, path, type,out tip);
-        tips.text = tip;
+        //ModelDataManager.GetInstance.AddModel(modelName.text,modelContent.text, path, type,out tip);
+        //tips.text = tip;
         FileOperation.CopyFile(path,Constant.GetModelFullPath(name));
     }
     public void OpenModelFile()

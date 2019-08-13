@@ -24,7 +24,14 @@ public class Constant
     {
         return string.Format("{0}/{1}.FBX", Application.streamingAssetsPath + "/model/",filename) ;
     }
-
+    public static string GetWordPath(string filename)
+    {
+        return string.Format("{0}/{1}", Application.streamingAssetsPath + "/Word", filename);
+    }
+    public static string GetWordFullPath(string filename)
+    {
+        return string.Format("file:///{0}/{1}", Application.streamingAssetsPath + "/Word", filename);
+    }
     public static string GetModelTexPath()
     {
         return "file:///" + Application.streamingAssetsPath + "/model/tex/";

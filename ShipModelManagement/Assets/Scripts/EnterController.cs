@@ -11,7 +11,8 @@ public class EnterController : MonoBehaviour
         {
             yield return 0;
         }
-
+        ModelDataManager.GetInstance.Init();
+        UserManager.Instance.Init();
         SceneManager.LoadScene(Constant.LoginSceneName);
     }
 

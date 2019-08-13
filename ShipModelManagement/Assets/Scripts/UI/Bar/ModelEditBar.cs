@@ -8,12 +8,15 @@ public class ModelEditBar : UIBar
     Button lookBtn;
     Button EditBtn;
     Button AddBtn;
+    Button alterPasswordBtn;
     public override void OnOpen()
     {
         base.OnOpen();
         lookBtn = _transform.Find("SelectPanel/LookBtn").GetComponent<Button>();
         EditBtn = _transform.Find("SelectPanel/EditBtn").GetComponent<Button>();
         AddBtn = _transform.Find("SelectPanel/AddBtn").GetComponent<Button>();
+        alterPasswordBtn = _transform.Find("AlterPassword").GetComponent<Button>();
+        alterPasswordBtn.onClick.AddListener(AlterPassWord);
         lookBtn.onClick.AddListener(delegate { OnSelectPanel(2); });
         EditBtn.onClick.AddListener(delegate { OnSelectPanel(1); });
         AddBtn.onClick.AddListener(delegate { OnSelectPanel(0); });
@@ -46,5 +49,8 @@ public class ModelEditBar : UIBar
                 break;
         }
     }
-
+    public void AlterPassWord()
+    {
+       // UserManager.Instance.AlterPassword();
+    }
 }

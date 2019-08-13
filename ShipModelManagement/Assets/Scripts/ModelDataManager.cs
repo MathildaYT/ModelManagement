@@ -11,12 +11,14 @@ public class ModelDaTaCache
     public string modelContent { get; set; }
     public ModelType modelType { get; set; }
     public string modelPath { get; set; }
+    public string wordpath { get; set; }
     public ModelDaTaCache()
     {
         modelName = "";
         modelContent = "";
         modelType = ModelType.NUll;
         modelPath = "";
+        wordpath = "";
     }
 }
 public class ModelDataManager 
@@ -33,8 +35,16 @@ public class ModelDataManager
             return _instance;
         }
     }
+    public void Init()
+    {
+        var check = DBInitController.GetInstance.DB.CheckTable<ModelData>();
+        if (!check)
+        {
+            DBInitController.GetInstance.DB.CreateTable<ModelData>();
+        }
+    }
 
-    public void AddModel(string model, string modelMsg, string modelpath,ModelType modelType, out string tips)
+    public void AddModel(string model, string modelMsg, string modelpath,string wordPath,ModelType modelType, out string tips)
     {
         var check = DBInitController.GetInstance.DB.CheckTable<ModelData>();
         if (!check)
@@ -53,6 +63,7 @@ public class ModelDataManager
         data.modelContent = modelMsg;
         data.modelType = modelType;
         data.modelPath = modelpath;
+        data.Wordpath = wordPath;
         DBInitController.GetInstance.DB.CreateData(data);
         tips = "录入成功";
     }
@@ -73,10 +84,11 @@ public class ModelDataManager
         }
         return false;
     }
-    public void ShowModel(string modelname, out string modelMsg, out string modelpath, out ModelType modelType)
+    public void ShowModel(string modelname, out string modelMsg, out string modelpath,out string WordPath, out ModelType modelType)
     {
         modelMsg = "";
         modelpath = "";
+        WordPath = "";
         modelType = ModelType.NUll;
         var check = DBInitController.GetInstance.DB.CheckTable<ModelData>();
         if (!check)
@@ -90,8 +102,29 @@ public class ModelDataManager
             modelMsg = d.modelContent;
             modelType = d.modelType;
             modelpath = d.modelPath;
+            WordPath = d.Wordpath;
         }
        
+    }
+    public void ShowModel(string modelname, out string modelMsg, out string modelpath,  out ModelType modelType)
+    {
+        modelMsg = "";
+        modelpath = "";
+        modelType = ModelType.NUll;
+        var check = DBInitController.GetInstance.DB.CheckTable<ModelData>();
+        if (!check)
+        {
+            return;
+        }
+        var datas = DBInitController.GetInstance.DB.GetData<ModelData>();
+        var d = datas.Where(x => x.modelName == modelname).FirstOrDefault();
+        if (d != null)
+        {
+            modelMsg = d.modelContent;
+            modelType = d.modelType;
+            modelpath = d.modelPath;
+        }
+
     }
     public ModelDaTaCache GetModelData(string modelname)
     {
@@ -100,6 +133,7 @@ public class ModelDataManager
         data.modelContent = "";
         data.modelPath = "";
         data.modelType = ModelType.NUll;
+        data.wordpath = "";
         var check = DBInitController.GetInstance.DB.CheckTable<ModelData>();
         if (!check)
         {
@@ -109,9 +143,11 @@ public class ModelDataManager
         var d = datas.Where(x => x.modelName == modelname).FirstOrDefault();
         if (d != null)
         {
+            data.modelName = modelname;
             data.modelContent = d.modelContent;
             data.modelType = d.modelType;
             data.modelPath = d.modelPath;
+            data.wordpath = d.Wordpath;
         }
 
         return data;
@@ -190,6 +226,10 @@ public class ModelDataManager
                 d.modelType = data.modelType;
             if (data.modelPath != "")
                 d.modelPath = data.modelPath;
+            if (data.wordpath!="")
+            {
+                d.Wordpath = data.wordpath;
+            }
             DBInitController.GetInstance.DB.Update(d);
         }
         //var m = new ModelDaTaCache();

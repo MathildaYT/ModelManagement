@@ -28,7 +28,16 @@ public class OpenShowModel : MonoBehaviour
     }
     void OnWord()
     {
-        ;
+        var data = ModelDataManager.GetInstance.GetModelData(ModelName);
+        if (data != null)
+        {
+            if (data.wordpath!="")
+            {
+                var path=Constant.GetWordFullPath(data.wordpath);
+                Application.OpenURL(path);
+            }
+        }
+
     }
 
     void OnBrowse()

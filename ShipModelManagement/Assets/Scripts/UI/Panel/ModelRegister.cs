@@ -12,11 +12,12 @@ public class ModelRegister : UIPanel
     public Button confirmAddBtn;
     public Button exportModelBtn;
     public Button backBtn;
-
+    public Button openWordBtn;
     public Text tips;
     private ModelType type;
     //public string path;
     public string modelResouseName;
+    public string wordPath;
     string tip;
 
     public override void OnBegin()
@@ -30,7 +31,8 @@ public class ModelRegister : UIPanel
         confirmAddBtn = _transform.Find("AddmodelBtn").GetComponent<Button>();
         //exportModelBtn = _transform.Find("ExportBtn").GetComponent<Button>();
         backBtn = _transform.Find("BackBtn").GetComponent<Button>();
-
+        openWordBtn = _transform.Find("OpenWordBtn").GetComponent<Button>();
+        openWordBtn.onClick.AddListener(OpenWordFile);
         openModelBtn.onClick.AddListener(OpenModelFile);
         confirmAddBtn.onClick.AddListener(SaveModelMsg);
         backBtn.onClick.AddListener(Back);
@@ -47,6 +49,7 @@ public class ModelRegister : UIPanel
         //path = "";
         //name = "";
         modelResouseName = "";
+        wordPath = "";
         type = ModelType.TypeOne;
 }
 
@@ -59,7 +62,7 @@ public class ModelRegister : UIPanel
 
     public void SaveModelMsg()
     {
-        ModelDataManager.GetInstance.AddModel(modelName.text, modelContent.text, modelResouseName, type, out tip);
+        ModelDataManager.GetInstance.AddModel(modelName.text, modelContent.text, modelResouseName,wordPath, type, out tip);
         //tips.text = tip;
         Debug.Log(tip);
         OpenWindow<ConfirmWnd>(tip);
@@ -72,6 +75,21 @@ public class ModelRegister : UIPanel
             FileOperation.CopyFile(path, Constant.GetModelFullPath(name));
         }
         modelResouseName = name;
+    }
+    public void OpenWordFile()
+    {
+        FileOperation.OpenSingleFile(out string path, out string name, "txt","doc","docx","pdf");
+
+        if (name != "")
+        {
+            FileOperation.CopyFile(path, Constant.GetWordPath(name));
+
+            var ext = FileOperation.GetExt(path);
+            wordPath = string.Format("{0}.{1}", name, ext);
+
+        }
+
+
     }
     public void Back()
     {

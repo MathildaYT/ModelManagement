@@ -18,6 +18,14 @@ public class UserManager
             return _instance;
         }
     }
+    public void Init()
+    {
+        var check = DBInitController.GetInstance.DB.CheckTable<MsgData>();
+        if (!check)
+        {
+            DBInitController.GetInstance.DB.CreateTable<MsgData>();
+        }
+    }
 
     public bool LogIn(string _userName, string _passWord,out string log)
     {
@@ -90,6 +98,22 @@ public class UserManager
         foreach (var item in datas)
         {
             DBInitController.GetInstance.DB.DeleteData<MsgData>(item);
+        }
+    }
+    public void AlterPassword(string userName, string Password)
+    {
+       
+        var check = DBInitController.GetInstance.DB.CheckTable<MsgData>();
+        if (!check)
+        {
+            return;
+        }
+        var datas = DBInitController.GetInstance.DB.GetData<MsgData>();
+        var d = datas.Where(x => x.Name == userName).FirstOrDefault();
+        if (d!=null)
+        {
+            d.Name = userName;
+            d.Password = Password;
         }
     }
 }

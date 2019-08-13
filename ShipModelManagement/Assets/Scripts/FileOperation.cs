@@ -180,6 +180,14 @@ public class FileOperation
         }
     }
 
+    public static string GetExt(string name)
+    {
+        var strs = name.Split('.');
+        var ext = strs[strs.Length - 1];
+
+        return ext;
+    }
+
     public static string[] GetFileNames(string path, string extension = "")
     {
         string[] files = Directory.GetFiles(path);
@@ -222,5 +230,22 @@ public class FileOperation
             File.Copy(source, target);
         }
         
+    }
+    static public void CopyFileToPath(string source, string name, string targetpath)
+    {
+        var strs = source.Split('.');
+        var ext = strs[strs.Length - 1];
+        var target = targetpath + name + "." + ext;
+
+        FileInfo file = new FileInfo(source);
+        if (file.Exists)
+        {
+            File.Copy(source, target, true);
+        }
+        else
+        {
+            File.Copy(source, target);
+        }
+
     }
 }

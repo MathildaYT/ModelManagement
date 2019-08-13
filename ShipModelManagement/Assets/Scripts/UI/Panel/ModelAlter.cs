@@ -18,6 +18,7 @@ public class ModelAlter : UIPanel
     private ModelType type;
     //public string path;
     public string modelResouseName;
+    private string wordName;
     private ModelDaTaCache data;
 
     public override void OnBegin()
@@ -49,6 +50,7 @@ public class ModelAlter : UIPanel
         string modelName=datas[0].ToString();
         //  backBtn.onClick.AddListener(Back);
         //  ShowModelMsg();
+        wordName ="";
         ShowModelMsg(modelName);
 
     }
@@ -61,7 +63,7 @@ public class ModelAlter : UIPanel
     public void SaveModelMsg()
     {
         string tip;
-        ModelDataManager.GetInstance.AddModel(model.text, modelContent.text, modelResouseName, type, out tip);
+        ModelDataManager.GetInstance.AddModel(model.text, modelContent.text, modelResouseName, wordName, type, out tip);
         tips.text = tip;
     }
     public void OpenModelFile()
@@ -80,12 +82,14 @@ public class ModelAlter : UIPanel
     {
         string content;
         ModelType mtype;
-        ModelDataManager.GetInstance.ShowModel(modelName, out content, out string modelpath, out mtype);
+        ModelDataManager.GetInstance.ShowModel(modelName, out content, out string modelpath, out wordName, out mtype);
         modelContent.text=content;
         type = mtype;
         modelType.value = (int)mtype;
-        modelPath.text = Constant.GetModelPath(modelName);
+        //modelPath.text = Constant.GetModelPath(modelName);
+        modelPath.text = modelpath;
         model.text = modelName;
+        wordPath.text = wordName;
     }
     public void ConfirmAlter()
     {
@@ -126,5 +130,21 @@ public class ModelAlter : UIPanel
     {
         path = modelPath.text;
         data.modelPath = path;
+    }
+    public void OpenWordFile()
+    {
+        FileOperation.OpenSingleFile(out string path, out string name, "txt", "doc", "docx", "pdf");
+        if (name!="")
+        {
+            FileOperation.CopyFile(path, Constant.GetWordPath(name));
+
+            var ext = FileOperation.GetExt(path);
+            wordName = string.Format("{0}.{1}", name, ext);
+
+        }
+    }
+    public void AlterWord()
+    {
+
     }
 }
