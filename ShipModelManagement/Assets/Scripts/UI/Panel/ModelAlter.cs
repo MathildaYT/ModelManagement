@@ -143,8 +143,5 @@ public class ModelAlter : UIPanel
 
         }
     }
-    public void AlterWord()
-    {
 
-    }
 }

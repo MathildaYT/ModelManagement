@@ -29,6 +29,7 @@ public class ModelDeleteWnd:UIWindow
     public void DeleteModel(string name)
     {
         ModelDataManager.GetInstance.DeleteModel(name);
+        UIManager.getInstance.CurrentPanel().SendMessage("update");
         OnClose();
     }
     

@@ -25,6 +25,8 @@ public class UserManager
         {
             DBInitController.GetInstance.DB.CreateTable<MsgData>();
         }
+            InitData();
+            PrintAllUser();
     }
 
     public bool LogIn(string _userName, string _passWord,out string log)
@@ -100,7 +102,7 @@ public class UserManager
             DBInitController.GetInstance.DB.DeleteData<MsgData>(item);
         }
     }
-    public void AlterPassword(string userName, string Password)
+    public void AlterPassword(string Password)
     {
        
         var check = DBInitController.GetInstance.DB.CheckTable<MsgData>();
@@ -109,11 +111,18 @@ public class UserManager
             return;
         }
         var datas = DBInitController.GetInstance.DB.GetData<MsgData>();
-        var d = datas.Where(x => x.Name == userName).FirstOrDefault();
+        var d = datas.Where(x => x.Name == "管理员").FirstOrDefault();
         if (d!=null)
         {
-            d.Name = userName;
             d.Password = Password;
         }
+    }
+    public void InitData()
+    {
+        var data = new MsgData();
+        data.Name = "管理员";
+        data.Password = "admin";
+        DBInitController.GetInstance.DB.CreateData<MsgData>(data);
+
     }
 }

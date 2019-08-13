@@ -166,4 +166,18 @@ public class ModelEdit : UIPanel
         _hasTxt = enable;
         ShowModelList();
     }
+    override public void SendMessage(params object[] objects)
+    {
+        if (objects.Length != 0)
+        {
+            if (objects[0].GetType() == typeof(string))
+            {
+                var funcname = objects[0].ToString();
+                if (funcname == "update")
+                {
+                    ShowModelList();
+                }
+            }
+        }
+    }
 }
