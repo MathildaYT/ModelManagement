@@ -59,6 +59,13 @@ public class ModelShow : UIWindow
         if (model!=null)
         {
             GameObject.Destroy(model);
+
+            var panel = UIManager.getInstance.CurrentPanel();
+            if(panel != null)
+            {
+                panel.SendMessage("update");
+            }
         }
+        
     }
 }
