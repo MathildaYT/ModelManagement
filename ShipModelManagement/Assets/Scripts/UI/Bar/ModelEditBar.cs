@@ -17,10 +17,29 @@ public class ModelEditBar : UIBar
         AddBtn = _transform.Find("SelectPanel/AddBtn").GetComponent<Button>();
         alterPasswordBtn = _transform.Find("AlterPassword").GetComponent<Button>();
         alterPasswordBtn.onClick.AddListener(AlterPassWord);
-        lookBtn.onClick.AddListener(delegate { OnSelectPanel(2); });
-        EditBtn.onClick.AddListener(delegate { OnSelectPanel(1); });
-        AddBtn.onClick.AddListener(delegate { OnSelectPanel(0); });
+        lookBtn.onClick.AddListener(delegate {
 
+            OnSelectPanel(2);
+            EditBtn.interactable = true;
+            AddBtn.interactable = true;
+            lookBtn.interactable = false;
+        });
+        EditBtn.onClick.AddListener(delegate { OnSelectPanel(1);
+
+            EditBtn.interactable = false;
+            AddBtn.interactable = true;
+            lookBtn.interactable = true;
+        });
+        AddBtn.onClick.AddListener(delegate { OnSelectPanel(0);
+
+            EditBtn.interactable = true;
+            AddBtn.interactable = false;
+            lookBtn.interactable = true;
+        });
+
+        //初始化
+        EditBtn.interactable = false;
+        UIManager.getInstance.Open<ModelEdit>();
     }
 
     public override void OnClose()

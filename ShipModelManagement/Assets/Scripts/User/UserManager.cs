@@ -24,8 +24,9 @@ public class UserManager
         if (!check)
         {
             DBInitController.GetInstance.DB.CreateTable<MsgData>();
-        }
             InitData();
+        }
+            
             PrintAllUser();
     }
 

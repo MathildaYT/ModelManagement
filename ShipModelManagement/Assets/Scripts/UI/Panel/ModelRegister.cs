@@ -36,6 +36,8 @@ public class ModelRegister : UIPanel
         openModelBtn.onClick.AddListener(OpenModelFile);
         confirmAddBtn.onClick.AddListener(SaveModelMsg);
         backBtn.onClick.AddListener(Back);
+
+        modelType.onValueChanged.AddListener(OnTypeChange);
     }
     public override void OnOpen(params object[] datas)
     {
@@ -99,6 +101,10 @@ public class ModelRegister : UIPanel
         wordPath = string.Format("{0}.{1}", name, ext);
         Debug.Log("wordPath: " + wordPath);
 
+    }
+    public void OnTypeChange(int value)
+    {
+        type = (ModelType)(value+1);
     }
     public void Back()
     {

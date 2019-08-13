@@ -8,7 +8,6 @@ public class ModelSceneController : MonoBehaviour
     void Start()
     {
         UIManager.getInstance.OpenBar<ModelEditBar>();
-        UIManager.getInstance.Open<ModelEdit>();
     }
 
     // Update is called once per frame
