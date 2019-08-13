@@ -5,27 +5,19 @@ using UnityEngine.UI;
 
 public class ModelEditBar : UIBar
 {
-    Dropdown _selectpanels;
-
-    List<string> _panels = new List<string>();
-
+    Button lookBtn;
+    Button EditBtn;
+    Button AddBtn;
     public override void OnOpen()
     {
         base.OnOpen();
+        lookBtn = _transform.Find("SelectPanel/LookBtn").GetComponent<Button>();
+        EditBtn = _transform.Find("SelectPanel/EditBtn").GetComponent<Button>();
+        AddBtn = _transform.Find("SelectPanel/AddBtn").GetComponent<Button>();
+        lookBtn.onClick.AddListener(delegate { OnSelectPanel(2); });
+        EditBtn.onClick.AddListener(delegate { OnSelectPanel(1); });
+        AddBtn.onClick.AddListener(delegate { OnSelectPanel(0); });
 
-        _selectpanels = _transform.Find("SelectPanel").gameObject.GetComponent<Dropdown>();
-
-        _panels.Clear();
-        _panels.Add("模型录入");
-        _panels.Add("模型编辑");
-        _panels.Add("模型查看");
-
-        _selectpanels.ClearOptions();
-        _selectpanels.AddOptions(_panels);
-
-        _selectpanels.value = 1;
-
-        _selectpanels.onValueChanged.AddListener(OnSelectPanel);
     }
 
     public override void OnClose()
@@ -54,4 +46,5 @@ public class ModelEditBar : UIBar
                 break;
         }
     }
+
 }

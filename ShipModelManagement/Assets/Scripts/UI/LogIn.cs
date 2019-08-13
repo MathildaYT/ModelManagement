@@ -8,9 +8,10 @@ public class LogIn : MonoBehaviour
 {
     public InputField _user;
     public InputField _Psd;
-    public Button _logInBTn;
-    public Button _RegisterBtn;
+    public Button _ManagerlogInBTn;
+  //  public Button _RegisterBtn;
     public Button _FinishBtn;
+    public Button _UserLogInBtn;
     public InputField _NewUser;
     public InputField _NewPsd;
     public GameObject _logInPanel;
@@ -20,8 +21,9 @@ public class LogIn : MonoBehaviour
     void Start()
     {
         //DBInitController.GetInstance.DB.CreateTable<MsgData>();
-        _logInBTn.onClick.AddListener(logIn);
-        _RegisterBtn.onClick.AddListener(Register);
+        _ManagerlogInBTn.onClick.AddListener(ManagerlogIn);
+        _UserLogInBtn.onClick.AddListener(_userLogIn);
+       // _RegisterBtn.onClick.AddListener(Register);
         _FinishBtn.onClick.AddListener(Finish);
 
         UserManager.Instance.PrintAllUser();
@@ -32,7 +34,7 @@ public class LogIn : MonoBehaviour
     {
         
     }
-   public void logIn()
+   public void ManagerlogIn()
     {
         string log;
         var ret=UserManager.Instance.LogIn(_user.text,_Psd.text,out log);
@@ -50,6 +52,10 @@ public class LogIn : MonoBehaviour
         {
             SceneManager.LoadScene(Constant.ModelViewSceneName);
         }
+    }
+    public void _userLogIn()
+    {
+        SceneManager.LoadScene(Constant.ModelViewSceneName);
     }
     public void Register()
     {

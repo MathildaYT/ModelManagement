@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,9 +14,11 @@ public class OpenShowModel : MonoBehaviour
     public Button Word;
     public Button browse;
     public Button export;
-
+    string path;
+    string name;
     public string ModelName;
     public string WordPath;
+    public string ModelResName;
 
     private void Awake()
     {
@@ -36,7 +39,18 @@ public class OpenShowModel : MonoBehaviour
 
     void OnExport()
     {
-        ;
+        //ModelDataManager.GetInstance.ShowModel();
+        FileOperation.OpenFilesPath(out path);
+       var newPath= string.Format("{0}/{1}/", path, ModelName);
+        if (File.Exists(newPath))
+        {
+        FileOperation.CopyFile(Constant.GetModelPath(ModelName), newPath);
+        }
+        else
+        {
+            Directory.CreateDirectory(newPath);
+            FileOperation.CopyFile(Constant.GetModelPath(ModelName), newPath);
+        }
     }
 }
 
