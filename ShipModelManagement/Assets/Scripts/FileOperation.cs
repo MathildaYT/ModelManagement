@@ -212,6 +212,15 @@ public class FileOperation
 
     static public void CopyFile(string source, string target)
     {
-        File.Copy(source,target);
+        FileInfo file = new FileInfo(source);
+        if(file.Exists)
+        {
+            file.CopyTo(target, true);
+        }
+        else
+        {
+            File.Copy(source, target);
+        }
+        
     }
 }

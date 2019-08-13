@@ -51,6 +51,7 @@ public class ModelShow : UIWindow
         model= uniFBXImport.GetObject();
         if(model != null)
         {
+            model.layer = 9;
             model.transform.position = showpos.position;
         }
     }
