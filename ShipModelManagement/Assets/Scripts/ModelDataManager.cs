@@ -93,6 +93,29 @@ public class ModelDataManager
         }
        
     }
+    public ModelDaTaCache GetModelData(string modelname)
+    {
+        var data = new ModelDaTaCache();
+
+        data.modelContent = "";
+        data.modelPath = "";
+        data.modelType = ModelType.NUll;
+        var check = DBInitController.GetInstance.DB.CheckTable<ModelData>();
+        if (!check)
+        {
+            return null;
+        }
+        var datas = DBInitController.GetInstance.DB.GetData<ModelData>();
+        var d = datas.Where(x => x.modelName == modelname).FirstOrDefault();
+        if (d != null)
+        {
+            data.modelContent = d.modelContent;
+            data.modelType = d.modelType;
+            data.modelPath = d.modelPath;
+        }
+
+        return data;
+    }
     public void DeleteModel(string model)
     {
         var check = DBInitController.GetInstance.DB.CheckTable<ModelData>();

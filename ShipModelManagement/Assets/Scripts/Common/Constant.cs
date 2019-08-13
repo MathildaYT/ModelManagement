@@ -18,7 +18,7 @@ public class Constant
     }
     public static string GetModelPath(string name)
     {
-        return "file:///" + Application.streamingAssetsPath + "/model/"+name;
+        return Application.streamingAssetsPath + "/model/"+name;
     }
     public static string GetModelFullPath(string filename)
     {

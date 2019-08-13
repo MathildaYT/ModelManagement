@@ -18,7 +18,7 @@ public class OpenShowModel : MonoBehaviour
     string name;
     public string ModelName;
     public string WordPath;
-    public string ModelResName;
+
 
     private void Awake()
     {
@@ -34,22 +34,26 @@ public class OpenShowModel : MonoBehaviour
     void OnBrowse()
     {
         UIManager.getInstance.OpenWindow<ModelShow>(ModelName);
-     
+
     }
 
     void OnExport()
     {
-        //ModelDataManager.GetInstance.ShowModel();
-        FileOperation.OpenFilesPath(out path);
-       var newPath= string.Format("{0}/{1}/", path, ModelName);
-        if (File.Exists(newPath))
+        var data = ModelDataManager.GetInstance.GetModelData(ModelName);
+        if (data != null)
         {
-        FileOperation.CopyFile(Constant.GetModelPath(ModelName), newPath);
-        }
-        else
-        {
-            Directory.CreateDirectory(newPath);
-            FileOperation.CopyFile(Constant.GetModelPath(ModelName), newPath);
+
+            FileOperation.OpenFilesPath(out path);
+            var newPath = string.Format("{0}/{1}/", path, ModelName);
+            if (File.Exists(newPath))
+            {
+                FileOperation.CopyFile(Constant.GetModelPath(data.modelPath)+".FBX", newPath);
+            }
+            else
+            {
+                Directory.CreateDirectory(newPath);
+                FileOperation.CopyFile(Constant.GetModelPath(data.modelPath) + ".FBX", newPath);
+            }
         }
     }
 }
