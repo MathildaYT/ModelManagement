@@ -50,6 +50,8 @@ public class ModelRegister : UIPanel
         //name = "";
         modelResouseName = "";
         wordPath = "";
+        cachemodelpath = "";
+        cachewordpath = "";
         type = ModelType.TypeOne;
 }
 
@@ -60,35 +62,42 @@ public class ModelRegister : UIPanel
         Debug.Log("close ModelRegister");
     }
 
+    private string cachemodelpath = "";
+    private string cachewordpath = "";
     public void SaveModelMsg()
     {
-        ModelDataManager.GetInstance.AddModel(modelName.text, modelContent.text, modelResouseName,wordPath, type, out tip);
+        if(!ModelDataManager.GetInstance.IsHasModel(modelName.text, out tip))
+        {
+            if (cachemodelpath != "")
+            {
+                FileOperation.CopyFile(cachemodelpath, Constant.GetModelFullPath(modelResouseName));
+            }
+
+            if (wordPath != "")
+            {
+                FileOperation.CopyFile(cachewordpath, Constant.GetWordPath(wordPath));
+            }
+
+            ModelDataManager.GetInstance.AddModel(modelName.text, modelContent.text, modelResouseName, wordPath, type, out tip);
+
+        }
         //tips.text = tip;
         Debug.Log(tip);
         OpenWindow<ConfirmWnd>(tip);
     }
     public void OpenModelFile()
     {
-        FileOperation.OpenSingleFile(out string path, out string name, "FBX");
-        if(!ModelDataManager.GetInstance.IsHasModel(modelName.text,out tip) &&path != "")
-        {
-            FileOperation.CopyFile(path, Constant.GetModelFullPath(name));
-        }
+        FileOperation.OpenSingleFile(out cachemodelpath, out string name, "FBX");
+        
         modelResouseName = name;
     }
     public void OpenWordFile()
     {
-        FileOperation.OpenSingleFile(out string path, out string name, "txt","doc","docx","pdf");
+        FileOperation.OpenSingleFile(out cachewordpath, out string name, "txt","doc","docx","pdf");
 
-        if (name != "")
-        {
-            FileOperation.CopyFile(path, Constant.GetWordPath(name));
-
-            var ext = FileOperation.GetExt(path);
-            wordPath = string.Format("{0}.{1}", name, ext);
-
-        }
-
+        var ext = FileOperation.GetExt(cachewordpath);
+        wordPath = string.Format("{0}.{1}", name, ext);
+        Debug.Log("wordPath: " + wordPath);
 
     }
     public void Back()

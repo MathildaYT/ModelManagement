@@ -30,7 +30,10 @@ public class Constant
     }
     public static string GetWordFullPath(string filename)
     {
-        return string.Format("file:///{0}/{1}", Application.streamingAssetsPath + "/Word", filename);
+        //var p = string.Format("file:///{0}/{1}", Application.streamingAssetsPath + "/Word", filename);
+        var p = string.Format("{0}/{1}", Application.streamingAssetsPath + "/Word", filename);
+        var finalpath = p.Replace(@"/", @"\");
+        return finalpath;
     }
     public static string GetModelTexPath()
     {
