@@ -44,15 +44,16 @@ public class OpenShowModel : MonoBehaviour
         {
 
             FileOperation.OpenFilesPath(out path);
-            var newPath = string.Format("{0}/{1}/", path, ModelName);
+            var newPath = string.Format(@"{0}\{1}", path, ModelName);
+            var copyfullpath = string.Format(@"{0}\{1}.FBX",newPath, data.modelPath);
             if (File.Exists(newPath))
             {
-                FileOperation.CopyFile(Constant.GetModelPath(data.modelPath)+".FBX", newPath);
+                FileOperation.CopyFile(Constant.GetModelPath(data.modelPath)+".FBX", copyfullpath);
             }
             else
             {
                 Directory.CreateDirectory(newPath);
-                FileOperation.CopyFile(Constant.GetModelPath(data.modelPath) + ".FBX", newPath);
+                FileOperation.CopyFile(Constant.GetModelPath(data.modelPath) + ".FBX", copyfullpath);
             }
         }
     }

@@ -215,7 +215,7 @@ public class FileOperation
         FileInfo file = new FileInfo(source);
         if(file.Exists)
         {
-            file.CopyTo(target, true);
+            File.Copy(source, target, true);
         }
         else
         {
