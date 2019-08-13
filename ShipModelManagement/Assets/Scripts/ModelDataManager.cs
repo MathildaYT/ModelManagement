@@ -34,7 +34,7 @@ public class ModelDataManager
         }
     }
 
-    public void AddModel(string model, string modelMsg,ModelType modelType, out string tips)
+    public void AddModel(string model, string modelMsg, string modelpath,ModelType modelType, out string tips)
     {
         var check = DBInitController.GetInstance.DB.CheckTable<ModelData>();
         if (!check)
@@ -52,6 +52,7 @@ public class ModelDataManager
         data.modelName = model;
         data.modelContent = modelMsg;
         data.modelType = modelType;
+        data.modelPath = modelpath;
         DBInitController.GetInstance.DB.CreateData(data);
         tips = "录入成功";
     }
@@ -72,9 +73,10 @@ public class ModelDataManager
         }
         return false;
     }
-    public void ShowModel(string modelname, out string modelMsg, out ModelType modelType)
+    public void ShowModel(string modelname, out string modelMsg, out string modelpath, out ModelType modelType)
     {
         modelMsg = "";
+        modelpath = "";
         modelType = ModelType.NUll;
         var check = DBInitController.GetInstance.DB.CheckTable<ModelData>();
         if (!check)
@@ -87,6 +89,7 @@ public class ModelDataManager
         {
             modelMsg = d.modelContent;
             modelType = d.modelType;
+            modelpath = d.modelPath;
         }
        
     }

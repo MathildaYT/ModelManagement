@@ -10,6 +10,7 @@ public class ModelShow : UIWindow
     public Text modelContent;
     public Button closeBtn;
     GameObject model;
+    Transform showpos;
     //string content;
     public override void OnOpen(params object[] datas)
     {
@@ -19,10 +20,14 @@ public class ModelShow : UIWindow
         modelContent = _transform.Find("Canvas/ShowPanel/Content").GetComponent<Text>();
         string content = "";
         closeBtn = _transform.Find("Canvas/ShowPanel/CloseBtn").GetComponent<Button>();
-        ModelDataManager.GetInstance.ShowModelContent(modelName,out content);
+        showpos = _transform.Find("SpawanPos");
+        //ModelDataManager.GetInstance.ShowModelContent(modelName,out content);
+        ModelType mtype;
+        string modelResouseName;
+        ModelDataManager.GetInstance.ShowModel(modelName, out content, out modelResouseName, out mtype);
         modelContent.text = content;
         closeBtn.onClick.AddListener(OnClose);
-        LoadModel(modelName);
+        LoadModel(modelResouseName);
     }
     public override void OnClose()
     {
@@ -31,7 +36,7 @@ public class ModelShow : UIWindow
     }
     public void LoadModel(string name)
     {
-        uniFBXImport.setting.paths.urlModels = Constant.GetModelPath(name);
+        uniFBXImport.setting.paths.urlModels = Constant.GetModelPath();
         uniFBXImport.setting.paths.urlTextures = Constant.GetModelTexPath();
         uniFBXImport.setting.paths.filename = name;
         uniFBXImport.Load();
@@ -44,6 +49,10 @@ public class ModelShow : UIWindow
             yield return null;
         }
         model= uniFBXImport.GetObject();
+        if(model != null)
+        {
+            model.transform.position = showpos.position;
+        }
     }
     void DeleteModel()
     {

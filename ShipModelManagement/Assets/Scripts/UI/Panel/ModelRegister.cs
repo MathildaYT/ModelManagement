@@ -15,8 +15,8 @@ public class ModelRegister : UIPanel
 
     public Text tips;
     private ModelType type;
-    public string path;
-    public string name;
+    //public string path;
+    public string modelResouseName;
     string tip;
 
     public override void OnBegin()
@@ -44,8 +44,9 @@ public class ModelRegister : UIPanel
         modelName.text = "";
         modelContent.text = "";
         modelType.value = 0;
-        path = "";
-        name = "";
+        //path = "";
+        //name = "";
+        modelResouseName = "";
         type = ModelType.TypeOne;
 }
 
@@ -58,18 +59,19 @@ public class ModelRegister : UIPanel
 
     public void SaveModelMsg()
     {
-        ModelDataManager.GetInstance.AddModel(modelName.text, modelContent.text, type, out tip);
+        ModelDataManager.GetInstance.AddModel(modelName.text, modelContent.text, modelResouseName, type, out tip);
         //tips.text = tip;
         Debug.Log(tip);
         OpenWindow<ConfirmWnd>(tip);
     }
     public void OpenModelFile()
     {
-        FileOperation.OpenSingleFile(out path, out name, "FBX");
+        FileOperation.OpenSingleFile(out string path, out string name, "FBX");
         if(!ModelDataManager.GetInstance.IsHasModel(modelName.text,out tip) &&path != "")
         {
             FileOperation.CopyFile(path, Constant.GetModelFullPath(name));
         }
+        modelResouseName = name;
     }
     public void Back()
     {

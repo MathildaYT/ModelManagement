@@ -16,8 +16,8 @@ public class ModelAlter : UIPanel
     public InputField wordPath;
     public Text tips;
     private ModelType type;
-    public string path;
-    public string name;
+    //public string path;
+    public string modelResouseName;
     private ModelDaTaCache data;
 
     public override void OnBegin()
@@ -61,14 +61,16 @@ public class ModelAlter : UIPanel
     public void SaveModelMsg()
     {
         string tip;
-        ModelDataManager.GetInstance.AddModel(model.text, modelContent.text, type, out tip);
+        ModelDataManager.GetInstance.AddModel(model.text, modelContent.text, modelResouseName, type, out tip);
         tips.text = tip;
     }
     public void OpenModelFile()
     {
-        FileOperation.OpenSingleFile(out path, out name, "FBX");
+        FileOperation.OpenSingleFile(out string path, out string name, "FBX");
 
         FileOperation.CopyFile(path, Constant.GetModelFullPath(name));
+
+        modelResouseName = name;
     }
     public void Back()
     {
@@ -78,7 +80,7 @@ public class ModelAlter : UIPanel
     {
         string content;
         ModelType mtype;
-        ModelDataManager.GetInstance.ShowModel(modelName, out content, out mtype);
+        ModelDataManager.GetInstance.ShowModel(modelName, out content, out string modelpath, out mtype);
         modelContent.text=content;
         type = mtype;
         modelType.value = (int)mtype;

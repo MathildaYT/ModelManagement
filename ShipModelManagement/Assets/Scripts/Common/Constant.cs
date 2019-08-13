@@ -14,11 +14,11 @@ public class Constant
     //public const string LoginSceneName = "SampleScene";
     public static string GetModelPath()
     {
-        return Application.streamingAssetsPath + "/model/";
+        return "file:///" + Application.streamingAssetsPath + "/model/";
     }
     public static string GetModelPath(string name)
     {
-        return Application.streamingAssetsPath + "/model/"+name;
+        return "file:///" + Application.streamingAssetsPath + "/model/"+name;
     }
     public static string GetModelFullPath(string filename)
     {
