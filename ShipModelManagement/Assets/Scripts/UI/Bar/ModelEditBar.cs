@@ -70,7 +70,6 @@ public class ModelEditBar : UIBar
     }
     public void AlterPassWord()
     {
-       // UIManager.getInstance.OpenWindow<AlterPsd>();
-        // UserManager.Instance.AlterPassword();
+        UIManager.getInstance.OpenWindow<AlterPsd>();
     }
 }
