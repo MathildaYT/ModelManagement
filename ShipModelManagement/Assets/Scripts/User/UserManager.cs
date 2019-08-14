@@ -3,7 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
-
+public enum UserType
+{
+    Normal,
+    Administrator,
+}
 public class UserManager 
 {
     private static UserManager _instance;
@@ -18,6 +22,11 @@ public class UserManager
             return _instance;
         }
     }
+    //-------------------------------------------
+    public  UserType Type { get; set; }
+
+
+    //-------------------------------------------
     public void Init()
     {
         var check = DBInitController.GetInstance.DB.CheckTable<MsgData>();
@@ -30,27 +39,35 @@ public class UserManager
             PrintAllUser();
     }
 
-    public bool LogIn(string _userName, string _passWord,out string log)
+    public bool LogIn(string _userName, string _passWord,out string log,UserType type=UserType.Administrator)
     {
-        var check = DBInitController.GetInstance.DB.CheckTable<MsgData>();
-        if (!check)
+        log = "";
+        Type = type;
+        if (type == UserType.Administrator)
         {
-            log = "没有用户信息";
-            return false;
-        }
-        var datas= DBInitController.GetInstance.DB.GetData<MsgData>();
-        var d = datas.Where(x => x.Name == _userName).FirstOrDefault();
-        if (d!=null&&d.Password==_passWord)
-        {
-            log = "登录成功!";
+            var check = DBInitController.GetInstance.DB.CheckTable<MsgData>();
+            if (!check)
+            {
+                log = "没有用户信息";
+                return false;
+            }
+            var datas = DBInitController.GetInstance.DB.GetData<MsgData>();
+            var d = datas.Where(x => x.Name == _userName).FirstOrDefault();
+            if (d != null && d.Password == _passWord)
+            {
+                log = "登录成功!";
 
-            return true;
-        }
-        else
-        {
-            log = "用户名或密码错误，请重新输入!";
+                return true;
+            }
+            else
+            {
+                log = "用户名或密码错误，请重新输入!";
+
+            }
 
         }
+        
+
         return false;
             
     }
@@ -117,6 +134,25 @@ public class UserManager
         {
             d.Password = Password;
         }
+            DBInitController.GetInstance.DB.Update(d);
+       
+    }
+    public void ResetPassword()
+    {
+
+        var check = DBInitController.GetInstance.DB.CheckTable<MsgData>();
+        if (!check)
+        {
+            return;
+        }
+        var datas = DBInitController.GetInstance.DB.GetData<MsgData>();
+        var d = datas.Where(x => x.Name == "管理员").FirstOrDefault();
+        if (d != null)
+        {
+            d.Password = "admin";
+        }
+        DBInitController.GetInstance.DB.Update(d);
+
     }
     public void InitData()
     {

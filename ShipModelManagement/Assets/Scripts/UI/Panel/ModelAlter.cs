@@ -93,6 +93,7 @@ public class ModelAlter : UIPanel
     }
     public void ConfirmAlter()
     {
+      
        ModelDataManager.GetInstance.AlterModel(data); 
     }
     public void ChangeType(int Value)

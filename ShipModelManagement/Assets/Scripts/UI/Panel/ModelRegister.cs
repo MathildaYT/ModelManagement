@@ -13,6 +13,7 @@ public class ModelRegister : UIPanel
     public Button exportModelBtn;
     public Button backBtn;
     public Button openWordBtn;
+    Text mName;
     public Text tips;
     private ModelType type;
     //public string path;
@@ -25,6 +26,7 @@ public class ModelRegister : UIPanel
         base.OnBegin();
 
         modelName = _transform.Find("InputName").GetComponent<InputField>();
+        mName = _transform.Find("NameShowTxt").GetComponent<Text>();
         modelType = _transform.Find("modelType").GetComponent<Dropdown>();
         openModelBtn = _transform.Find("OpenModelBtn").GetComponent<Button>();
         modelContent = _transform.Find("InputContent").GetComponent<InputField>();
@@ -68,24 +70,32 @@ public class ModelRegister : UIPanel
     private string cachewordpath = "";
     public void SaveModelMsg()
     {
-        if(!ModelDataManager.GetInstance.IsHasModel(modelName.text, out tip))
+        if (!string.IsNullOrEmpty(modelName.text))
         {
-            if (cachemodelpath != "")
+            if (!ModelDataManager.GetInstance.IsHasModel(modelName.text, out tip))
             {
-                FileOperation.CopyFile(cachemodelpath, Constant.GetModelFullPath(modelResouseName));
+                if (cachemodelpath != "")
+                {
+                    FileOperation.CopyFile(cachemodelpath, Constant.GetModelFullPath(modelResouseName));
+                }
+
+                if (wordPath != "")
+                {
+                    FileOperation.CopyFile(cachewordpath, Constant.GetWordPath(wordPath));
+                }
+
+                ModelDataManager.GetInstance.AddModel(modelName.text, modelContent.text, modelResouseName, wordPath, type, out tip);
+
             }
-
-            if (wordPath != "")
-            {
-                FileOperation.CopyFile(cachewordpath, Constant.GetWordPath(wordPath));
-            }
-
-            ModelDataManager.GetInstance.AddModel(modelName.text, modelContent.text, modelResouseName, wordPath, type, out tip);
-
+            //tips.text = tip;
+            mName.color = Color.black;
+            Debug.Log(tip);
+            OpenWindow<ConfirmWnd>(tip);
         }
-        //tips.text = tip;
-        Debug.Log(tip);
-        OpenWindow<ConfirmWnd>(tip);
+        else
+        {
+            mName.color = Color.red ;
+        }
     }
     public void OpenModelFile()
     {

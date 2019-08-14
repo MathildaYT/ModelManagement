@@ -57,12 +57,28 @@ public class OpenShowModel : MonoBehaviour
             var copyfullpath = string.Format(@"{0}\{1}.FBX",newPath, data.modelPath);
             if (File.Exists(newPath))
             {
+                if (data.modelPath!="")
+                {
                 FileOperation.CopyFile(Constant.GetModelPath(data.modelPath)+".FBX", copyfullpath);
+                    
+                }
+                if (data.wordpath!="")
+                {
+                    FileOperation.CopyFile(Constant.GetWordFullPath(data.wordpath), copyfullpath);
+
+                }
             }
             else
             {
                 Directory.CreateDirectory(newPath);
+                if (data.modelPath != "")
+                {
                 FileOperation.CopyFile(Constant.GetModelPath(data.modelPath) + ".FBX", copyfullpath);
+                }
+                if (data.wordpath != "")
+                {
+                    FileOperation.CopyFile(Constant.GetWordFullPath(data.wordpath), copyfullpath);
+                }
             }
         }
     }

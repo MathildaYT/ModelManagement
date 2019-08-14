@@ -20,10 +20,10 @@ public class Test : MonoBehaviour
         {
             ModelDataManager.GetInstance.DeleteAll();
         }
-        if (Input.GetKeyDown(KeyCode.S))
-        {
-            UserManager.Instance.DeleteAllUser();
-        }
+        //if (Input.GetKeyDown(KeyCode.S))
+        //{
+        //    UserManager.Instance.DeleteAllUser();
+        //}
     }
 
 }

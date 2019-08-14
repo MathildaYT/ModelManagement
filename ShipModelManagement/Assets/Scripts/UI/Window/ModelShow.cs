@@ -11,6 +11,7 @@ public class ModelShow : UIWindow
     public Button closeBtn;
     GameObject model;
     Transform showpos;
+    Text tips;
     //string content;
     public override void OnOpen(params object[] datas)
     {
@@ -19,15 +20,33 @@ public class ModelShow : UIWindow
         uniFBXImport= _transform.GetComponent<UniFBXImport>();
         modelContent = _transform.Find("Canvas/ShowPanel/Content").GetComponent<Text>();
         string content = "";
+        tips = _transform.Find("Canvas/tips").GetComponent<Text>();
         closeBtn = _transform.Find("Canvas/ShowPanel/CloseBtn").GetComponent<Button>();
         showpos = _transform.Find("SpawanPos");
         //ModelDataManager.GetInstance.ShowModelContent(modelName,out content);
         ModelType mtype;
         string modelResouseName;
         ModelDataManager.GetInstance.ShowModel(modelName, out content, out modelResouseName, out mtype);
+        if (content=="")
+        {
+            modelContent.text = "暂未录入模型简介";
+        }
+        else
+        {
         modelContent.text = content;
+        }
+        if (modelResouseName=="")
+        {
+            tips.gameObject.SetActive(true);
+            tips.text = "暂未录入模型";
+        }
+        else
+        {
+            tips.gameObject.SetActive(false);
+        }
         closeBtn.onClick.AddListener(OnClose);
         LoadModel(modelResouseName);
+
     }
     public override void OnClose()
     {
@@ -56,6 +75,7 @@ public class ModelShow : UIWindow
             model.transform.position = showpos.position;
 
             model.transform.rotation = showpos.rotation;
+            model.AddComponent<RotateModel>();
         }
     }
     private void SetGameObjectLayer(GameObject trans, int layer)

@@ -28,8 +28,9 @@ public class AlterPsd : UIWindow
         if (!string.IsNullOrEmpty(inputPsd.text))
         {
         UserManager.Instance.AlterPassword(inputPsd.text);
-        }
 
+        }
+        OnClose();
     }
 
 }

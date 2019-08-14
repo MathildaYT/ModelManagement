@@ -17,6 +17,9 @@ public class LogIn : MonoBehaviour
     public GameObject _logInPanel;
     public GameObject _RegisterPanel;
     public Text Tips;
+    public Button resetBtn;
+    int value = 0;
+    public UserType userType;
     // Start is called before the first frame update
     void Start()
     {
@@ -25,8 +28,9 @@ public class LogIn : MonoBehaviour
         _UserLogInBtn.onClick.AddListener(_userLogIn);
        // _RegisterBtn.onClick.AddListener(Register);
         _FinishBtn.onClick.AddListener(Finish);
-
+        resetBtn.onClick.AddListener(ResetPassWord);
         UserManager.Instance.PrintAllUser();
+
     }
 
     // Update is called once per frame
@@ -36,6 +40,7 @@ public class LogIn : MonoBehaviour
     }
    public void ManagerlogIn()
     {
+        userType = UserType.Administrator;
         string log;
         var ret=UserManager.Instance.LogIn(_user.text,_Psd.text,out log);
         //if (CommonMethod.IsAllChinese(_user.text))
@@ -55,6 +60,8 @@ public class LogIn : MonoBehaviour
     }
     public void _userLogIn()
     {
+        userType = UserType.Normal;
+        UserManager.Instance.LogIn(_user.text, _Psd.text, out string log, userType);
         SceneManager.LoadScene(Constant.ModelViewSceneName);
     }
     public void Register()
@@ -70,5 +77,17 @@ public class LogIn : MonoBehaviour
         _RegisterPanel.SetActive(false);
         _logInPanel.SetActive(true);
     }
-    
+    public void ResetPassWord()
+    {
+        Debug.Log("reset");
+        if (value==5)
+        {
+        UserManager.Instance.ResetPassword();
+        UserManager.Instance.PrintAllUser();
+        }
+        else
+        {
+            value++;
+        }
+    }
 }

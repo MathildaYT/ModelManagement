@@ -143,6 +143,11 @@ public class ModelLook : UIPanel
                     var datactrl = obj.GetComponent<OpenShowModel>();
                     datactrl.Name.text = r.modelName;
                     datactrl.ModelName = r.modelName;
+                    if (r.Wordpath=="")
+                    {
+                        datactrl.Word.interactable = false;
+                        datactrl.Word.GetComponentInChildren<Text>().text = "无";
+                    }
                     datactrl.Type.text = Enum.GetName(typeof(ModelType), r.modelType);
                     //datactrl.WordPath = r.
                     numdata++;
