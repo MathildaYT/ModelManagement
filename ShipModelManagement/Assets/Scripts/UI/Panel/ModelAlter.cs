@@ -75,8 +75,8 @@ public class ModelAlter : UIPanel
         FileOperation.OpenSingleFile(out string path, out string name, "FBX");
 
         FileOperation.CopyFile(path, Constant.GetModelFullPath(name));
-
-        modelResouseName = name;
+        data.modelPath = name;
+        //modelResouseName = name;
     }
     public void Back()
     {
@@ -98,7 +98,8 @@ public class ModelAlter : UIPanel
     public void ConfirmAlter()
     {
         string tip = "";
-       ModelDataManager.GetInstance.AlterModel(data);
+    
+        ModelDataManager.GetInstance.AlterModel(data);
         tip = "修改成功！";
         OpenWindow<ConfirmWnd>(tip);
 
@@ -149,11 +150,11 @@ public class ModelAlter : UIPanel
         FileOperation.OpenSingleFile(out string path, out string name, "txt", "doc", "docx", "pdf", ".xlsx");
         if (name!="")
         {
-            FileOperation.CopyFile(path, Constant.GetWordPath(name));
 
             var ext = FileOperation.GetExt(path);
-            wordName = string.Format("{0}.{1}", name, ext);
-
+            data.wordpath = string.Format("{0}.{1}", name, ext);
+            FileOperation.CopyFile(path, Constant.GetWordPath(name));
+         
         }
     }
     
