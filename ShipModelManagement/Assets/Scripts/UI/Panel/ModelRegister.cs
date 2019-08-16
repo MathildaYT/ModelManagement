@@ -105,7 +105,7 @@ public class ModelRegister : UIPanel
     }
     public void OpenWordFile()
     {
-        FileOperation.OpenSingleFile(out cachewordpath, out string name, "txt","doc","docx","pdf");
+        FileOperation.OpenSingleFile(out cachewordpath, out string name, "txt","doc","docx","pdf",".xlsx");
 
         var ext = FileOperation.GetExt(cachewordpath);
         wordPath = string.Format("{0}.{1}", name, ext);

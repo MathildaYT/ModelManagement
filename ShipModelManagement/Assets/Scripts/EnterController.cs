@@ -13,7 +13,9 @@ public class EnterController : MonoBehaviour
         }
         UserManager.Instance.Init();
         ModelDataManager.GetInstance.Init();
+        //Cursor.SetCursor(null, Vector2.zero, CursorMode.ForceSoftware);
         SceneManager.LoadScene(Constant.LoginSceneName);
+
     }
 
     // Update is called once per frame

@@ -16,7 +16,7 @@ public class MouseCursor : MonoBehaviour,IPointerEnterHandler,IPointerExitHandle
         Cursor.SetCursor(null, Vector2.zero, CursorMode.ForceSoftware);
 
     }
-
+   
     private void OnDestroy()
     {
         Cursor.SetCursor(null, Vector2.zero, CursorMode.ForceSoftware);
