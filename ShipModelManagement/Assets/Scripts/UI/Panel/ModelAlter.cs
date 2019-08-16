@@ -10,7 +10,7 @@ public class ModelAlter : UIPanel
     public Button openModelBtn;
     public InputField modelContent;
     public Button confirmAlterBtn;
-    public Button exportModelBtn;
+    public Button openWordBtn;
     public Button backBtn;
     public InputField modelPath;
     public InputField wordPath;
@@ -29,15 +29,19 @@ public class ModelAlter : UIPanel
         openModelBtn = _transform.Find("OpenModelBtn").GetComponent<Button>();
         modelContent = _transform.Find("InputContent").GetComponent<InputField>();
         confirmAlterBtn = _transform.Find("AltermodelBtn").GetComponent<Button>();
+        openWordBtn = _transform.Find("OpenWordBtn").GetComponent<Button>();
         modelPath = _transform.Find("InputPath").GetComponent<InputField>();
         wordPath = _transform.Find("InputWordPath").GetComponent<InputField>();
         //backBtn = _transform.Find("BackBtn").GetComponent<Button>();
         confirmAlterBtn.onClick.AddListener(ConfirmAlter);
         openModelBtn.onClick.AddListener(OpenModelFile);
+        openWordBtn.onClick.AddListener(OpenWordFile);
         //  confirmAddBtn.onClick.AddListener(SaveModelMsg);
         modelType.onValueChanged.AddListener(ChangeType);
         model.onValueChanged.AddListener(AlterName);
         modelContent.onValueChanged.AddListener(AlterContent);
+        modelPath.onValueChanged.AddListener(AlterPath);
+        wordPath.onValueChanged.AddListener(AlterWordPath);
         data = new ModelDaTaCache();
     }
 
@@ -93,8 +97,11 @@ public class ModelAlter : UIPanel
     }
     public void ConfirmAlter()
     {
-      
-       ModelDataManager.GetInstance.AlterModel(data); 
+        string tip = "";
+       ModelDataManager.GetInstance.AlterModel(data);
+        tip = "修改成功！";
+        OpenWindow<ConfirmWnd>(tip);
+
     }
     public void ChangeType(int Value)
     {
@@ -132,9 +139,14 @@ public class ModelAlter : UIPanel
         path = modelPath.text;
         data.modelPath = path;
     }
+    public void AlterWordPath(string path)
+    {
+        path = wordPath.text;
+        data.wordpath = path;
+    }
     public void OpenWordFile()
     {
-        FileOperation.OpenSingleFile(out string path, out string name, "txt", "doc", "docx", "pdf");
+        FileOperation.OpenSingleFile(out string path, out string name, "txt", "doc", "docx", "pdf", ".xlsx");
         if (name!="")
         {
             FileOperation.CopyFile(path, Constant.GetWordPath(name));
@@ -144,5 +156,5 @@ public class ModelAlter : UIPanel
 
         }
     }
-
+    
 }

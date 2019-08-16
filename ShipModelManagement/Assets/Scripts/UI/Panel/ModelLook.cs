@@ -71,11 +71,11 @@ public class ModelLook : UIPanel
     {
         InputName.text = "";
         DropModelType.value = 0;
-        HasModel.isOn = true;
-        HasTxt.isOn = true;
+        HasModel.isOn = false;
+        HasTxt.isOn = false;
 
-        _hasModel = true;
-        _hasTxt = true;
+        _hasModel = false;
+        _hasTxt = false;
         _selectModelType = ModelType.NUll;
         _findname = "";
     }
@@ -90,24 +90,29 @@ public class ModelLook : UIPanel
             {
                 //var res = datas.Where((x => (_hasModel ^ x.modelName.Contains(_findname) && x.modelType == _selectModelType)));
                 //IEnumerable<ModelData> res;
-                if (_hasModel)
-                {
-                    datas = datas.Where(x => x.modelPath != "");
-                }
-                if(_findname != "")
+                if (_findname != "")
                 {
                     datas = datas.Where(x => x.modelName.Contains(_findname));
                 }
-                
-                if(_selectModelType != ModelType.NUll)
+                else
                 {
-                    datas = datas.Where(x => x.modelType == _selectModelType);
+                    if (_hasModel)
+                    {
+                        datas = datas.Where(x => x.modelPath != "");
+                    }
+                    if (_selectModelType != ModelType.NUll)
+                    {
+                        datas = datas.Where(x => x.modelType == _selectModelType);
+                    }
+
+                    if (_hasTxt)
+                    {
+                        datas = datas.Where(x => x.Wordpath != "");
+                    }
+
                 }
                 
-                if (_hasTxt)
-                {
-                    datas = datas.Where(x => x.Wordpath != "");
-                }
+
                 //datas1.Where();
                 //delete
                 List<GameObject> templist = new List<GameObject>();
@@ -147,6 +152,11 @@ public class ModelLook : UIPanel
                     {
                         datactrl.Word.interactable = false;
                         datactrl.Word.GetComponentInChildren<Text>().text = "无";
+                    }
+                    else
+                    {
+                        datactrl.Word.interactable = true;
+                        datactrl.Word.GetComponentInChildren<Text>().text = "有";
                     }
                     datactrl.Type.text = Enum.GetName(typeof(ModelType), r.modelType);
                     //datactrl.WordPath = r.

@@ -75,7 +75,7 @@ public class ModelShow : UIWindow
             model.transform.position = showpos.position;
 
             model.transform.rotation = showpos.rotation;
-            model.AddComponent<RotateModel>();
+            model.AddComponent<OperateModel>();
         }
     }
     private void SetGameObjectLayer(GameObject trans, int layer)

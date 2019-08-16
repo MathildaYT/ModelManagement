@@ -27,5 +27,25 @@ public class CommonMethod
         }
         return hasChinese;
     }
+    public static bool isChinese(char c)
+    {
+        return c >= 0x4E00 && c <= 0x9FA5;
+    }
+
+    public static bool checkString(string str)
+    {
+        char[] ch = str.ToCharArray();
+        if (str != null)
+        {
+            for (int i = 0; i < ch.Length; i++)
+            {
+                if (isChinese(ch[i]))
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 }
 
