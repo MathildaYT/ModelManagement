@@ -7,6 +7,7 @@ using UnityEngine.UI;
 
 public class ModelDaTaCache
 {
+    public int ID { get; set; }
     public string modelName { get; set; }
     public string modelContent { get; set; }
     public ModelType modelType { get; set; }
@@ -59,6 +60,7 @@ public class ModelDataManager
             return;
         }
         var data = new ModelData();
+        data.ID = 1;
         data.modelName = model;
         data.modelContent = modelMsg;
         data.modelType = modelType;
@@ -84,7 +86,7 @@ public class ModelDataManager
         }
         return false;
     }
-    public void ShowModel(string modelname, out string modelMsg, out string modelpath,out string WordPath, out ModelType modelType)
+    public int ShowModel(string modelname, out string modelMsg, out string modelpath,out string WordPath, out ModelType modelType)
     {
         modelMsg = "";
         modelpath = "";
@@ -93,7 +95,7 @@ public class ModelDataManager
         var check = DBInitController.GetInstance.DB.CheckTable<ModelData>();
         if (!check)
         {
-            return;
+            return -1;
         }
         var datas = DBInitController.GetInstance.DB.GetData<ModelData>();
         var d = datas.Where(x => x.modelName == modelname).FirstOrDefault();
@@ -103,8 +105,9 @@ public class ModelDataManager
             modelType = d.modelType;
             modelpath = d.modelPath;
             WordPath = d.Wordpath;
+            return d.ID;
         }
-       
+        return -1;
     }
     public void ShowModel(string modelname, out string modelMsg, out string modelpath,  out ModelType modelType)
     {
@@ -179,6 +182,7 @@ public class ModelDataManager
         foreach (var item in datas)
         {
         DBInitController.GetInstance.DB.DeleteData<ModelData>(item);
+            DBInitController.GetInstance.DB.Connection.DeleteAll<ModelData>();
         }
 
     }
@@ -216,7 +220,8 @@ public class ModelDataManager
             DBInitController.GetInstance.DB.CreateTable<ModelData>();
         }
         var datas = DBInitController.GetInstance.DB.GetData<ModelData>();
-        var d = datas.Where(x => x.modelName == data.modelName).FirstOrDefault();
+        Debug.Log("id:" + data.ID);
+        var d = datas.Where(x => x.ID == data.ID).FirstOrDefault();
         if (d != null)
         {
             d.modelName = data.modelName;

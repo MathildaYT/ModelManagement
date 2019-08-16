@@ -86,7 +86,9 @@ public class ModelAlter : UIPanel
     {
         string content;
         ModelType mtype;
-        ModelDataManager.GetInstance.ShowModel(modelName, out content, out string modelpath, out wordName, out mtype);
+        var id = ModelDataManager.GetInstance.ShowModel(modelName, out content, out string modelpath, out wordName, out mtype);
+        data.ID = id;
+
         modelContent.text=content;
         type = mtype;
         modelType.value = (int)mtype;
