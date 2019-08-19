@@ -15,23 +15,25 @@ public class ModelAlter : UIPanel
     public InputField modelPath;
     public InputField wordPath;
     public Text tips;
+    //string wordNamePath="";
     private ModelType type;
     //public string path;
     public string modelResouseName;
     private string wordName;
     private ModelDaTaCache data;
-
+    private string cachewordfullpath;
+    private string cacheModelFullPath;
     public override void OnBegin()
     {
         base.OnBegin();
-        model= _transform.Find("InputName").GetComponent<InputField>();
-        modelType = _transform.Find("modelType").GetComponent<Dropdown>();
-        openModelBtn = _transform.Find("OpenModelBtn").GetComponent<Button>();
-        modelContent = _transform.Find("InputContent").GetComponent<InputField>();
-        confirmAlterBtn = _transform.Find("AltermodelBtn").GetComponent<Button>();
-        openWordBtn = _transform.Find("OpenWordBtn").GetComponent<Button>();
-        modelPath = _transform.Find("InputPath").GetComponent<InputField>();
-        wordPath = _transform.Find("InputWordPath").GetComponent<InputField>();
+        model= _transform.Find("Root/InputName").GetComponent<InputField>();
+        modelType = _transform.Find("Root/modelType").GetComponent<Dropdown>();
+        openModelBtn = _transform.Find("Root/OpenModelBtn").GetComponent<Button>();
+        modelContent = _transform.Find("Root/InputContent").GetComponent<InputField>();
+        confirmAlterBtn = _transform.Find("Root/AltermodelBtn").GetComponent<Button>();
+        openWordBtn = _transform.Find("Root/OpenWordBtn").GetComponent<Button>();
+        modelPath = _transform.Find("Root/InputPath").GetComponent<InputField>();
+        wordPath = _transform.Find("Root/InputWordPath").GetComponent<InputField>();
         //backBtn = _transform.Find("BackBtn").GetComponent<Button>();
         confirmAlterBtn.onClick.AddListener(ConfirmAlter);
         openModelBtn.onClick.AddListener(OpenModelFile);
@@ -43,6 +45,8 @@ public class ModelAlter : UIPanel
         modelPath.onValueChanged.AddListener(AlterPath);
         wordPath.onValueChanged.AddListener(AlterWordPath);
         data = new ModelDaTaCache();
+        cachewordfullpath = "";
+        cacheModelFullPath = "";
     }
 
     public override void OnOpen(params object[] datas)
@@ -70,14 +74,7 @@ public class ModelAlter : UIPanel
         ModelDataManager.GetInstance.AddModel(model.text, modelContent.text, modelResouseName, wordName, type, out tip);
         tips.text = tip;
     }
-    public void OpenModelFile()
-    {
-        FileOperation.OpenSingleFile(out string path, out string name, "FBX");
-
-        FileOperation.CopyFile(path, Constant.GetModelFullPath(name));
-        data.modelPath = name;
-        //modelResouseName = name;
-    }
+ 
     public void Back()
     {
         UIManager.getInstance.Back();
@@ -101,6 +98,15 @@ public class ModelAlter : UIPanel
     {
         string tip = "";
     
+        if(cachewordfullpath != "")
+        {
+            FileOperation.CopyFile(cachewordfullpath, Constant.GetWordPath(data.wordpath));
+        }
+        if(cacheModelFullPath!="")
+        {
+            FileOperation.CopyFile(cacheModelFullPath, Constant.GetModelFullPath(data.modelPath));
+        }
+
         ModelDataManager.GetInstance.AlterModel(data);
         tip = "修改成功！";
         OpenWindow<ConfirmWnd>(tip);
@@ -149,15 +155,19 @@ public class ModelAlter : UIPanel
     }
     public void OpenWordFile()
     {
-        FileOperation.OpenSingleFile(out string path, out string name, "txt", "doc", "docx", "pdf", ".xlsx");
+        FileOperation.OpenSingleFile(out cachewordfullpath, out string name, "txt", "doc", "docx", "pdf", "xlsx");
         if (name!="")
         {
 
-            var ext = FileOperation.GetExt(path);
-            data.wordpath = string.Format("{0}.{1}", name, ext);
-            FileOperation.CopyFile(path, Constant.GetWordPath(name));
-         
+            var ext = FileOperation.GetExt(cachewordfullpath);
+            var wordNamePath = string.Format("{0}.{1}", name, ext);
+            data.wordpath = wordNamePath;
         }
     }
-    
+    public void OpenModelFile()
+    {
+        FileOperation.OpenSingleFile(out cacheModelFullPath, out string name, "FBX");
+        data.modelPath = name;
+        //modelResouseName = name;
+    }
 }

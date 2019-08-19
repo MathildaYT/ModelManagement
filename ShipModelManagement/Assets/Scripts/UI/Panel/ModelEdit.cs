@@ -25,11 +25,11 @@ public class ModelEdit : UIPanel
         base.OnBegin();
 
         //-----------------------------------------
-        ScrollView = _transform.Find("Scroll View").GetComponent<ScrollRect>();
-        InputName = _transform.Find("InputName").GetComponent<InputField>();
-        DropModelType = _transform.Find("ModelType").GetComponent<Dropdown>();
-        HasModel = _transform.Find("HasModel").GetComponent<Toggle>();
-        HasTxt = _transform.Find("HasTxt").GetComponent<Toggle>();
+        ScrollView = _transform.Find("Root/Scroll View").GetComponent<ScrollRect>();
+        InputName = _transform.Find("Root/InputName").GetComponent<InputField>();
+        DropModelType = _transform.Find("Root/ModelType").GetComponent<Dropdown>();
+        HasModel = _transform.Find("Root/HasModel").GetComponent<Toggle>();
+        HasTxt = _transform.Find("Root/HasTxt").GetComponent<Toggle>();
 
         _ModelDataPrefab = ScrollView.content.GetChild(0).gameObject;
         _ModelDataPrefab.SetActive(false);

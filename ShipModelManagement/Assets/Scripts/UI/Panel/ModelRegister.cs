@@ -25,15 +25,15 @@ public class ModelRegister : UIPanel
     {
         base.OnBegin();
 
-        modelName = _transform.Find("InputName").GetComponent<InputField>();
-        mName = _transform.Find("NameShowTxt").GetComponent<Text>();
-        modelType = _transform.Find("modelType").GetComponent<Dropdown>();
-        openModelBtn = _transform.Find("OpenModelBtn").GetComponent<Button>();
-        modelContent = _transform.Find("InputContent").GetComponent<InputField>();
-        confirmAddBtn = _transform.Find("AddmodelBtn").GetComponent<Button>();
+        modelName = _transform.Find("Root/InputName").GetComponent<InputField>();
+        mName = _transform.Find("Root/NameShowTxt").GetComponent<Text>();
+        modelType = _transform.Find("Root/modelType").GetComponent<Dropdown>();
+        openModelBtn = _transform.Find("Root/OpenModelBtn").GetComponent<Button>();
+        modelContent = _transform.Find("Root/InputContent").GetComponent<InputField>();
+        confirmAddBtn = _transform.Find("Root/AddmodelBtn").GetComponent<Button>();
         //exportModelBtn = _transform.Find("ExportBtn").GetComponent<Button>();
-        backBtn = _transform.Find("BackBtn").GetComponent<Button>();
-        openWordBtn = _transform.Find("OpenWordBtn").GetComponent<Button>();
+        backBtn = _transform.Find("Root/BackBtn").GetComponent<Button>();
+        openWordBtn = _transform.Find("Root/OpenWordBtn").GetComponent<Button>();
         openWordBtn.onClick.AddListener(OpenWordFile);
         openModelBtn.onClick.AddListener(OpenModelFile);
         confirmAddBtn.onClick.AddListener(SaveModelMsg);
@@ -57,7 +57,8 @@ public class ModelRegister : UIPanel
         cachemodelpath = "";
         cachewordpath = "";
         type = ModelType.TypeOne;
-}
+        mName.color = Color.black;
+    }
 
     public override void OnClose()
     {
@@ -105,7 +106,7 @@ public class ModelRegister : UIPanel
     }
     public void OpenWordFile()
     {
-        FileOperation.OpenSingleFile(out cachewordpath, out string name, "txt","doc","docx","pdf",".xlsx");
+        FileOperation.OpenSingleFile(out cachewordpath, out string name, "txt","doc","docx","pdf","xlsx");
 
         var ext = FileOperation.GetExt(cachewordpath);
         wordPath = string.Format("{0}.{1}", name, ext);
