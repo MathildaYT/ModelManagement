@@ -20,7 +20,8 @@ public class ModelRegister : UIPanel
     public string modelResouseName;
     public string wordPath;
     string tip;
-
+    public InputField inputName;
+    public InputField inputWord;
     public override void OnBegin()
     {
         base.OnBegin();
@@ -34,6 +35,9 @@ public class ModelRegister : UIPanel
         //exportModelBtn = _transform.Find("ExportBtn").GetComponent<Button>();
         backBtn = _transform.Find("Root/BackBtn").GetComponent<Button>();
         openWordBtn = _transform.Find("Root/OpenWordBtn").GetComponent<Button>();
+        inputName = _transform.Find("Root/InputModel").GetComponent<InputField>();
+        inputWord = _transform.Find("Root/InputWord").GetComponent<InputField>();
+
         openWordBtn.onClick.AddListener(OpenWordFile);
         openModelBtn.onClick.AddListener(OpenModelFile);
         confirmAddBtn.onClick.AddListener(SaveModelMsg);
@@ -103,6 +107,7 @@ public class ModelRegister : UIPanel
         FileOperation.OpenSingleFile(out cachemodelpath, out string name, "FBX");
         
         modelResouseName = name;
+        inputName.text = cachemodelpath;
     }
     public void OpenWordFile()
     {
@@ -111,7 +116,7 @@ public class ModelRegister : UIPanel
         var ext = FileOperation.GetExt(cachewordpath);
         wordPath = string.Format("{0}.{1}", name, ext);
         Debug.Log("wordPath: " + wordPath);
-
+        inputWord.text = cachewordpath;
     }
     public void OnTypeChange(int value)
     {

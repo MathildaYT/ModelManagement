@@ -802,7 +802,7 @@ GameObject:
   - component: {fileID: 1620369392902931379}
   - component: {fileID: 6106853769090160515}
   m_Layer: 5
-  m_Name: InputField (1)
+  m_Name: InputWord
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1373,7 +1373,7 @@ GameObject:
   - component: {fileID: 2433974778517564736}
   - component: {fileID: 7099148593142508668}
   m_Layer: 5
-  m_Name: InputField
+  m_Name: InputModel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
