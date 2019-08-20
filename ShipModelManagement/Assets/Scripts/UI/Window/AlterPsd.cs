@@ -13,10 +13,10 @@ public class AlterPsd : UIWindow
     public override void OnOpen(params object[] datas)
     {
         base.OnOpen(datas);
-        submitBtn= _transform.Find("Submit").GetComponent<Button>();
-        inputPsd = _transform.Find("AlterPanel/InputpassWord").GetComponent<InputField>();
-        closeBtn = _transform.Find("CloseBtn").GetComponent<Button>();
-        tips = _transform.Find("tips").GetComponent<Text>();
+        submitBtn= _transform.Find("Root/Submit").GetComponent<Button>();
+        inputPsd = _transform.Find("Root/AlterPanel/InputpassWord").GetComponent<InputField>();
+        closeBtn = _transform.Find("Root/CloseBtn").GetComponent<Button>();
+        tips = _transform.Find("Root/tips").GetComponent<Text>();
         submitBtn.onClick.AddListener(Submit);
         closeBtn.onClick.AddListener(OnClose);
         inputPsd.onEndEdit.AddListener(delegate { AlterPassWord(); } );

@@ -58,13 +58,13 @@ public class ModelEditBar : UIBar
             lookBtn.onClick.AddListener(delegate {
 
                 OnSelectPanel(2);
-                lookBtn.interactable = true;
+                lookBtn.interactable = false;
             });
 
             EditBtn.gameObject.SetActive(false);
             AddBtn.gameObject.SetActive(false);
             alterPasswordBtn.gameObject.SetActive(false);
-            UIManager.getInstance.OpenWindow<ModelShow>();
+            UIManager.getInstance.Open<ModelLook>();
         }
        
     }
