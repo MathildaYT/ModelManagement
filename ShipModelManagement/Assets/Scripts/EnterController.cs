@@ -7,6 +7,7 @@ public class EnterController : MonoBehaviour
 {
     IEnumerator Start()
     {
+        Screen.SetResolution(1920, 1080,false);
         while (DBInitController.GetInstance.DB == null)
         {
             yield return 0;
