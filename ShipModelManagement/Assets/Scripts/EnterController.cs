@@ -42,11 +42,11 @@ public class EnterController : MonoBehaviour
 
     void LateUpdate()
     {
-        if(Screen.width != (int)_currentWidth ||
-            Screen.height != (int)_currentHeight)
-        {
-            SetWindow();
-        }
+        //if(Screen.width != (int)_currentWidth ||
+        //    Screen.height != (int)_currentHeight)
+        //{
+        //    SetWindow();
+        //}
     }
 
     void SetWindow()

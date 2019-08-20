@@ -57,7 +57,7 @@ public class ModelEditBar : UIBar
 
             lookBtn.onClick.AddListener(delegate {
 
-                OnSelectPanel(2);
+                //OnSelectPanel(2);
                 lookBtn.interactable = false;
             });
 
