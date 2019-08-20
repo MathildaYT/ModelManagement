@@ -897,7 +897,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Model1
+  m_Text: "\u6218\u5217\u8230"
 --- !u!1 &3911251889954811821
 GameObject:
   m_ObjectHideFlags: 0
@@ -1006,7 +1006,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.000061035156, y: -0.000019073486}
+  m_AnchoredPosition: {x: -0.000061035156, y: -0.000015258789}
   m_SizeDelta: {x: 0.000061035156, y: 28}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &3911251890069158120
@@ -4218,11 +4218,11 @@ MonoBehaviour:
   m_Value: 0
   m_Options:
     m_Options:
-    - m_Text: Model1
+    - m_Text: "\u6218\u5217\u8230"
       m_Image: {fileID: 0}
-    - m_Text: Model2
+    - m_Text: "\u9A71\u9010\u8230"
       m_Image: {fileID: 0}
-    - m_Text: Model3
+    - m_Text: "\u6F5C\u8247"
       m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:

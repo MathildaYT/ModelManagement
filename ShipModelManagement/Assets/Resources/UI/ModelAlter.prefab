@@ -1263,11 +1263,11 @@ MonoBehaviour:
     m_Options:
     - m_Text: 
       m_Image: {fileID: 0}
-    - m_Text: model1
+    - m_Text: "\u6218\u5217\u8230"
       m_Image: {fileID: 0}
-    - m_Text: model2
+    - m_Text: "\u9A71\u9010\u8230"
       m_Image: {fileID: 0}
-    - m_Text: model3
+    - m_Text: "\u6F5C\u8247"
       m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:
@@ -3378,7 +3378,7 @@ MonoBehaviour:
   m_Content: {fileID: 3049066948920372331}
   m_Horizontal: 0
   m_Vertical: 1
-  m_MovementType: 1
+  m_MovementType: 0
   m_Elasticity: 0.1
   m_Inertia: 1
   m_DecelerationRate: 0.135
