@@ -26,8 +26,8 @@ public class ConfirmWnd : UIWindow
     {
         base.OnOpen(datas);
 
-        _confirmbtn = _transform.Find("Confirm").gameObject.GetComponent<Button>();
-        _content = _transform.Find("Word").gameObject.GetComponent<Text>();
+        _confirmbtn = _transform.Find("Root/Confirm").gameObject.GetComponent<Button>();
+        _content = _transform.Find("Root/Word").gameObject.GetComponent<Text>();
 
         _confirmbtn.onClick.AddListener(OnClose);
         _content.text = datas[0].ToString();
