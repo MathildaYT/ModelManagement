@@ -35,9 +35,10 @@ public class ModelLook : UIPanel
         _ModelDataPrefab.transform.parent = null;
         //-----------------------------------------
         DropModelType.ClearOptions();
-        var names = Enum.GetNames(typeof(ModelType));
+        //var names = Enum.GetNames(typeof(ModelType));
         var namelist = new List<string>();
-        foreach (var n in names)
+        namelist.Add("全部");
+        foreach (var n in Constant.ModelType)
         {
             namelist.Add(n);
         }
@@ -158,7 +159,8 @@ public class ModelLook : UIPanel
                         datactrl.Word.interactable = true;
                         datactrl.Word.GetComponentInChildren<Text>().text = "有";
                     }
-                    datactrl.Type.text = Enum.GetName(typeof(ModelType), r.modelType);
+                    //datactrl.Type.text = Enum.GetName(typeof(ModelType), r.modelType);
+                    datactrl.Type.text = Constant.ModelType[(int)r.modelType - 1];
                     //datactrl.WordPath = r.
                     numdata++;
                 }

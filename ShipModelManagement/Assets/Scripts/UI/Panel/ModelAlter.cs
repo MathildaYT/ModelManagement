@@ -39,6 +39,13 @@ public class ModelAlter : UIPanel
         openModelBtn.onClick.AddListener(OpenModelFile);
         openWordBtn.onClick.AddListener(OpenWordFile);
         //  confirmAddBtn.onClick.AddListener(SaveModelMsg);
+        var namelist = new List<string>();
+        foreach (var n in Constant.ModelType)
+        {
+            namelist.Add(n);
+        }
+        modelType.ClearOptions();
+        modelType.AddOptions(namelist);
         modelType.onValueChanged.AddListener(ChangeType);
         model.onValueChanged.AddListener(AlterName);
         modelContent.onValueChanged.AddListener(AlterContent);
@@ -112,25 +119,9 @@ public class ModelAlter : UIPanel
         OpenWindow<ConfirmWnd>(tip);
 
     }
-    public void ChangeType(int Value)
+    public void ChangeType(int value)
     {
-        switch (Value)
-        {
-            case 0:
-                type = ModelType.NUll;
-                break;
-            case 1:
-                type = ModelType.TypeOne;
-                break;
-            case 2:
-                type = ModelType.TypeTwo;
-                break;
-            case 3:
-                type = ModelType.TypeThree;
-                break;
-            default:
-                break;
-        }
+        type = (ModelType)(value + 1);
         data.modelType = type;
     }
     public void AlterName(string name)

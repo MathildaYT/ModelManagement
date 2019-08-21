@@ -40,10 +40,10 @@ public class Constant
         return "file:///" + Application.streamingAssetsPath + "/model/tex/";
     }
 
-    //public static string[] ModelType
-    //{
-    //    "战列舰",
-    //    "驱逐舰",
-    //    "潜艇"
-    //}
+    public static string[] ModelType =
+    {
+        "战列舰",
+        "驱逐舰",
+        "潜艇"
+    };
 }

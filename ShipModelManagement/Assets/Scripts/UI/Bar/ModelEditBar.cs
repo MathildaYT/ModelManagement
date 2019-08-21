@@ -60,7 +60,7 @@ public class ModelEditBar : UIBar
                 //OnSelectPanel(2);
                 lookBtn.interactable = false;
             });
-
+            lookBtn.interactable = false;
             EditBtn.gameObject.SetActive(false);
             AddBtn.gameObject.SetActive(false);
             alterPasswordBtn.gameObject.SetActive(false);

@@ -43,6 +43,14 @@ public class ModelRegister : UIPanel
         confirmAddBtn.onClick.AddListener(SaveModelMsg);
         backBtn.onClick.AddListener(Back);
 
+        var namelist = new List<string>();
+        foreach (var n in Constant.ModelType)
+        {
+            namelist.Add(n);
+        }
+        modelType.ClearOptions();
+        modelType.AddOptions(namelist);
+
         modelType.onValueChanged.AddListener(OnTypeChange);
     }
     public override void OnOpen(params object[] datas)

@@ -8,7 +8,7 @@ public class OperateModel : MonoBehaviour
     float offset = 0.2f;
     float maxSize = 2.0f;
     float minSize = 1.0f;
-    public float speed = 200f;
+    public float speed = 15f;
     Vector3 bAngel;
     // Use this for initialization
     void Start()
@@ -24,18 +24,7 @@ public class OperateModel : MonoBehaviour
         //Zoom out
         if (Input.GetAxis("Mouse ScrollWheel") < 0)
         {
-            if (scale.x <= maxSize)
-            {
-                scale.x += offset;
-                scale.y += offset;
-                scale.z += offset;
-                this.transform.localScale = scale;
-            }
-
-        }
-        //Zoom in
-        if (Input.GetAxis("Mouse ScrollWheel") > 0)
-        {
+           
             if (scale.x > minSize)
             {
                 scale.x -= offset;
@@ -44,13 +33,24 @@ public class OperateModel : MonoBehaviour
                 this.transform.localScale = scale;
             }
         }
+        //Zoom in
+        if (Input.GetAxis("Mouse ScrollWheel") > 0)
+        {
+            if (scale.x <= maxSize)
+            {
+                scale.x += offset;
+                scale.y += offset;
+                scale.z += offset;
+                this.transform.localScale = scale;
+            }
+        }
         //鼠标左键旋转物体
         if (Input.GetMouseButton(0))
         {
             float fMouseX = Input.GetAxis("Mouse X");
             float fMouseY = Input.GetAxis("Mouse Y");
-            this.transform.Rotate(Vector3.up * Time.deltaTime * speed * fMouseX);
-            this.transform.Rotate(Vector3.right * Time.deltaTime * speed * fMouseY);
+            this.transform.Rotate(new Vector3(fMouseY,-fMouseX,0) * speed,Space.World);
+            //this.transform.Rotate(Vector3.right * Time.deltaTime * speed * fMouseX);
         }
         if(Input.GetMouseButtonDown(1))
         {
