@@ -180,8 +180,11 @@ public class ModelLook : UIPanel
 
     private void OnChangeType(int type)
     {
+        float time1 = Time.realtimeSinceStartup;
         _selectModelType = (ModelType)type;
         ShowModelList();
+        float time2 = Time.realtimeSinceStartup;
+        Debug.Log("用时"+(time2-time1));
     }
 
     private void OnEnableModelName(bool enable)

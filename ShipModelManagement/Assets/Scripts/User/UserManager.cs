@@ -157,8 +157,8 @@ public class UserManager
     public void InitData()
     {
         var data = new MsgData();
-        data.Name = "管理员";
-        data.Password = "admin";
+        data.Name = "Admin";
+        data.Password = "admin2019";
         DBInitController.GetInstance.DB.CreateData<MsgData>(data);
 
     }
