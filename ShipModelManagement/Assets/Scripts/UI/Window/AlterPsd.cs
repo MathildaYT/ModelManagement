@@ -52,7 +52,8 @@ public class AlterPsd : UIWindow
     {
         if (isValid)
         {
-        UIManager.getInstance.OpenWindow<SkipWnd>();
+            UIManager.getInstance.OpenWindow<SkipWnd>();
+            UIManager.getInstance.CloseWindow<AlterPsd>();
         }
     }
 }

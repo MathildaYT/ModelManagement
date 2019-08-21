@@ -15,12 +15,12 @@ public class ModelEditBar : UIBar
     public override void OnOpen()
     {
         base.OnOpen();
-        userText = _transform.Find("UserShowTxt").GetComponent<Text>();
-        lookBtn = _transform.Find("SelectPanel/LookBtn").GetComponent<Button>();
-        EditBtn = _transform.Find("SelectPanel/EditBtn").GetComponent<Button>();
-        AddBtn = _transform.Find("SelectPanel/AddBtn").GetComponent<Button>();
-        alterPasswordBtn = _transform.Find("base/AlterPassword").GetComponent<Button>();
-        QuitBtn = _transform.Find("base/Quit").GetComponent<Button>();
+        userText = _transform.Find("Root/UserShowTxt").GetComponent<Text>();
+        lookBtn = _transform.Find("Root/SelectPanel/LookBtn").GetComponent<Button>();
+        EditBtn = _transform.Find("Root/SelectPanel/EditBtn").GetComponent<Button>();
+        AddBtn = _transform.Find("Root/SelectPanel/AddBtn").GetComponent<Button>();
+        alterPasswordBtn = _transform.Find("Root/base/AlterPassword").GetComponent<Button>();
+        QuitBtn = _transform.Find("Root/base/Quit").GetComponent<Button>();
         QuitBtn.onClick.AddListener(Quit);
         if (UserManager.Instance.Type==UserType.Administrator)
         {
@@ -48,8 +48,8 @@ public class ModelEditBar : UIBar
                 lookBtn.interactable = true;
             });
 
-            EditBtn.interactable = false;
-            UIManager.getInstance.Open<ModelEdit>();
+            lookBtn.interactable = false;
+            UIManager.getInstance.Open<ModelLook>();
         }
         if (UserManager.Instance.Type == UserType.Normal)
         {
