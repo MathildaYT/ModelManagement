@@ -12,7 +12,7 @@ public class SkipWnd:UIWindow
     public override void OnOpen(params object[] datas)
     {
         base.OnOpen(datas);
-        resetBtn = _transform.Find("Refesh").GetComponent<Button>();
+        resetBtn = _transform.Find("Root/Refesh").GetComponent<Button>();
         resetBtn.onClick.AddListener(Reset); 
     }
     public override void OnClose()

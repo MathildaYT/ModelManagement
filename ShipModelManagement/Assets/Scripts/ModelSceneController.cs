@@ -15,4 +15,9 @@ public class ModelSceneController : MonoBehaviour
     {
         
     }
+
+    private void OnDestroy()
+    {
+        UIManager.getInstance.ClearAll();
+    }
 }

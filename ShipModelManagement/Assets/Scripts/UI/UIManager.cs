@@ -142,4 +142,14 @@ public class UIManager
             curpanel.CloseWindow<T>();
         }
     }
+
+    public void ClearAll()
+    {
+        //bar
+        _bars.Clear();
+        //panel
+        _UIlist.Clear();
+
+        _backstack.Clear();
+    }
 }

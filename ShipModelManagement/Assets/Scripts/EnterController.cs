@@ -65,4 +65,9 @@ public class EnterController : MonoBehaviour
         }
         Screen.SetResolution((int)_currentWidth, (int)_currentHeight, Screen.fullScreen);
     }
+
+    private void OnDestroy()
+    {
+        
+    }
 }
