@@ -33,12 +33,11 @@ public class UserManager
         if (!check)
         {
             DBInitController.GetInstance.DB.CreateTable<MsgData>();
-
-
-            InitData();
         }
-            
-            PrintAllUser();
+
+        InitData();
+
+        PrintAllUser();
     }
 
     public bool LogIn(string _userName, string _passWord,out string log,UserType type=UserType.Administrator)
@@ -159,10 +158,14 @@ public class UserManager
     }
     public void InitData()
     {
-        var data = new MsgData();
-        data.Name = "Admin";
-        data.Password = "admin2019";
-        DBInitController.GetInstance.DB.CreateData<MsgData>(data);
-
+        var datas = DBInitController.GetInstance.DB.GetData<MsgData>();
+        var d = datas.Where(x => (string.Compare(x.Name, "Admin", true) == 0)).FirstOrDefault();
+        if(d == null)
+        {
+            var data = new MsgData();
+            data.Name = "Admin";
+            data.Password = "admin2019";
+            DBInitController.GetInstance.DB.CreateData<MsgData>(data);
+        }
     }
 }
