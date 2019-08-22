@@ -33,6 +33,8 @@ public class UserManager
         if (!check)
         {
             DBInitController.GetInstance.DB.CreateTable<MsgData>();
+
+
             InitData();
         }
             
@@ -52,8 +54,8 @@ public class UserManager
                 return false;
             }
             var datas = DBInitController.GetInstance.DB.GetData<MsgData>();
-            var d = datas.Where(x => x.Name == _userName).FirstOrDefault();
-            if (d != null && d.Password == _passWord)
+            var d = datas.Where(x => (string.Compare(x.Name, _userName, true) == 0)).FirstOrDefault();
+            if (d!=null&&(string.Compare(d.Password,_passWord,true)==0))
             {
                 log = "登录成功!";
 
@@ -146,10 +148,10 @@ public class UserManager
             return;
         }
         var datas = DBInitController.GetInstance.DB.GetData<MsgData>();
-        var d = datas.Where(x => x.Name == "管理员").FirstOrDefault();
+        var d = datas.Where(x => x.Name == "Admin").FirstOrDefault();
         if (d != null)
         {
-            d.Password = "admin";
+            d.Password = "admin2019";
         }
         DBInitController.GetInstance.DB.Update(d);
 
