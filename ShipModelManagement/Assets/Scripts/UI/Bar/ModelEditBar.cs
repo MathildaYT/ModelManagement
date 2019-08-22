@@ -24,7 +24,7 @@ public class ModelEditBar : UIBar
         QuitBtn.onClick.AddListener(Quit);
         if (UserManager.Instance.Type==UserType.Administrator)
         {
-            userText.text = "登录人：管理员";
+            userText.text = "管理员";
             alterPasswordBtn.onClick.AddListener(AlterPassWord);
             lookBtn.onClick.AddListener(delegate {
 
@@ -53,7 +53,7 @@ public class ModelEditBar : UIBar
         }
         if (UserManager.Instance.Type == UserType.Normal)
         {
-            userText.text = "登录人：游客";
+            userText.text = "普通用户";
 
             lookBtn.onClick.AddListener(delegate {
 

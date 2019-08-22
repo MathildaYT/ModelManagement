@@ -17,8 +17,8 @@ public class EnterController : MonoBehaviour
 
     IEnumerator Start()
     {
-        _currentHeight = 1080;
-        _currentWidth = 1920;
+        _currentHeight = 720;
+        _currentWidth = 1280;
         Screen.SetResolution((int)_currentWidth, (int)_currentHeight, false);
         while (DBInitController.GetInstance.DB == null)
         {

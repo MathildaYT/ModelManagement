@@ -121,6 +121,7 @@ public class UserManager
         {
             DBInitController.GetInstance.DB.DeleteData<MsgData>(item);
         }
+        InitData();
     }
     public void AlterPassword(string Password)
     {
