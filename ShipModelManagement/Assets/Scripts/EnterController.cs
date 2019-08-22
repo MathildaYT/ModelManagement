@@ -1,5 +1,7 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -15,6 +17,7 @@ public class EnterController : MonoBehaviour
     float _minWidth = 1536;
     float _minheight = 864;
 
+    
     IEnumerator Start()
     {
         _currentHeight = 720;
@@ -37,7 +40,18 @@ public class EnterController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
+    }
+
+    private void OnGUI()
+    {
+        if (Screen.fullScreen)
+        {
+            if(GUI.Button(new Rect(Screen.width - 18, -2, 20, 20), "-"))
+            {
+                Screen.fullScreen = false;
+            }
+        }
     }
 
     void LateUpdate()
