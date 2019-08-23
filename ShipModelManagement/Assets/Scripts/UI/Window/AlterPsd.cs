@@ -10,16 +10,22 @@ public class AlterPsd : UIWindow
     public Button closeBtn;
     public Text tips;
     bool isValid = false;
+    public Transform showImg;
+    Button showPsdBtn;
+    bool isShow = false;
     public override void OnOpen(params object[] datas)
     {
         base.OnOpen(datas);
-        submitBtn= _transform.Find("Root/Submit").GetComponent<Button>();
+        submitBtn = _transform.Find("Root/Submit").GetComponent<Button>();
         inputPsd = _transform.Find("Root/AlterPanel/InputpassWord").GetComponent<InputField>();
         closeBtn = _transform.Find("Root/CloseBtn").GetComponent<Button>();
+       showPsdBtn = _transform.Find("Root/AlterPanel/ShowPsd").GetComponent<Button>();
+        showImg = showPsdBtn.transform.Find("showImg").transform;
         tips = _transform.Find("Root/tips").GetComponent<Text>();
         submitBtn.onClick.AddListener(Submit);
         closeBtn.onClick.AddListener(OnClose);
         inputPsd.onEndEdit.AddListener(delegate { AlterPassWord(); } );
+        showPsdBtn.onClick.AddListener(ShowPassword);
     }
     public override void OnClose()
     {
@@ -54,6 +60,27 @@ public class AlterPsd : UIWindow
         {
             UIManager.getInstance.OpenWindow<SkipWnd>();
             UIManager.getInstance.CloseWindow<AlterPsd>();
+        }
+    }
+    public void ShowPassword()
+    {
+
+        if (!isShow)
+        {
+            showPsdBtn.GetComponent<Image>().enabled=false;
+            showImg.gameObject.SetActive(true);
+            inputPsd.contentType = InputField.ContentType.Standard;
+            inputPsd.ActivateInputField();
+            isShow = true;
+        }
+        else
+        {
+            showPsdBtn.GetComponent<Image>().enabled=true;
+            showImg.gameObject.SetActive(false);
+            inputPsd.contentType = InputField.ContentType.Password;
+            inputPsd.ActivateInputField();
+            isShow = false;
+
         }
     }
 }

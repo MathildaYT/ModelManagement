@@ -8,14 +8,14 @@ public enum UserType
     Normal,
     Administrator,
 }
-public class UserManager 
+public class UserManager
 {
     private static UserManager _instance;
     public static UserManager Instance
     {
         get
         {
-            if (_instance==null)
+            if (_instance == null)
             {
                 _instance = new UserManager();
             }
@@ -23,7 +23,7 @@ public class UserManager
         }
     }
     //-------------------------------------------
-    public  UserType Type { get; set; }
+    public UserType Type { get; set; }
 
 
     //-------------------------------------------
@@ -33,14 +33,14 @@ public class UserManager
         if (!check)
         {
             DBInitController.GetInstance.DB.CreateTable<MsgData>();
+            InitData();
         }
 
-        InitData();
 
         PrintAllUser();
     }
 
-    public bool LogIn(string _userName, string _passWord,out string log,UserType type=UserType.Administrator)
+    public bool LogIn(string _userName, string _passWord, out string log, UserType type = UserType.Administrator)
     {
         log = "";
         Type = type;
@@ -54,7 +54,7 @@ public class UserManager
             }
             var datas = DBInitController.GetInstance.DB.GetData<MsgData>();
             var d = datas.Where(x => (string.Compare(x.Name, _userName, true) == 0)).FirstOrDefault();
-            if (d!=null&&(string.Compare(d.Password,_passWord,true)==0))
+            if (d != null && (string.Compare(d.Password, _passWord, true) == 0))
             {
                 log = "登录成功!";
 
@@ -67,12 +67,12 @@ public class UserManager
             }
 
         }
-        
+
 
         return false;
-            
+
     }
-    public void Register(string _userName, string _passWord,out string log)
+    public void Register(string _userName, string _passWord, out string log)
     {
         var check = DBInitController.GetInstance.DB.CheckTable<MsgData>();
         if (!check)
@@ -124,20 +124,20 @@ public class UserManager
     }
     public void AlterPassword(string Password)
     {
-       
+
         var check = DBInitController.GetInstance.DB.CheckTable<MsgData>();
         if (!check)
         {
             return;
         }
         var datas = DBInitController.GetInstance.DB.GetData<MsgData>();
-        var d = datas.Where(x => x.Name == "管理员").FirstOrDefault();
-        if (d!=null)
+        var d = datas.Where(x => x.Name == "Admin").FirstOrDefault();
+        if (d != null)
         {
             d.Password = Password;
         }
-            DBInitController.GetInstance.DB.Update(d);
-       
+        DBInitController.GetInstance.DB.Update(d);
+
     }
     public void ResetPassword()
     {
@@ -160,7 +160,7 @@ public class UserManager
     {
         var datas = DBInitController.GetInstance.DB.GetData<MsgData>();
         var d = datas.Where(x => (string.Compare(x.Name, "Admin", true) == 0)).FirstOrDefault();
-        if(d == null)
+        if (d == null)
         {
             var data = new MsgData();
             data.Name = "Admin";

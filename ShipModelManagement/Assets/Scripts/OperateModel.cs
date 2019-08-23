@@ -56,7 +56,7 @@ public class OperateModel : MonoBehaviour
         if(Input.GetMouseButtonDown(1))
         {
             transform.localEulerAngles = bAngel;
-            transform.localScale = new Vector3(1,1,1);
+            transform.localScale = new Vector3(2,2,2);
          //   this.transform.Rotate(Vector3.up , Time.deltaTime * speed,Space.World);
         }
     }

@@ -153,6 +153,7 @@ public class ModelAlter : UIPanel
             var ext = FileOperation.GetExt(cachewordfullpath);
             var wordNamePath = string.Format("{0}.{1}", name, ext);
             data.wordpath = wordNamePath;
+            wordPath.text = name;
         }
     }
     public void OpenModelFile()
@@ -160,5 +161,6 @@ public class ModelAlter : UIPanel
         FileOperation.OpenSingleFile(out cacheModelFullPath, out string name, "FBX");
         data.modelPath = name;
         //modelResouseName = name;
+        modelPath.text = name;
     }
 }
