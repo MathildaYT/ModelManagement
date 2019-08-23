@@ -6,13 +6,14 @@ public class OperateModel : MonoBehaviour
 {
     Vector3 scale;
     float offset = 0.2f;
-    float maxSize = 2.0f;
+    float maxSize = 5.0f;
     float minSize = 1.0f;
     public float speed = 15f;
     Vector3 bAngel;
     // Use this for initialization
     void Start()
     {
+        this.transform.localScale *= 2;
         scale = this.transform.localScale;
         bAngel = this.transform.localEulerAngles;
     }

@@ -184,7 +184,7 @@ public class ModelLook : UIPanel
         _selectModelType = (ModelType)type;
         ShowModelList();
         float time2 = Time.realtimeSinceStartup;
-        Debug.Log("用时"+(time2-time1));
+        //Debug.Log("用时"+(time2-time1));
     }
 
     private void OnEnableModelName(bool enable)

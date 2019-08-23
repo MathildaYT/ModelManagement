@@ -70,6 +70,9 @@ public class ModelRegister : UIPanel
         cachewordpath = "";
         type = ModelType.TypeOne;
         mName.color = Color.black;
+
+        inputName.text = "";
+        inputWord.text = "";
     }
 
     public override void OnClose()
@@ -107,28 +110,28 @@ public class ModelRegister : UIPanel
         }
         else
         {
-            mName.color = Color.red ;
+            mName.color = Color.red;
         }
     }
     public void OpenModelFile()
     {
         FileOperation.OpenSingleFile(out cachemodelpath, out string name, "FBX");
-        
+
         modelResouseName = name;
-        inputName.text = cachemodelpath;
+        inputName.text = modelResouseName;
     }
     public void OpenWordFile()
     {
-        FileOperation.OpenSingleFile(out cachewordpath, out string name, "txt","doc","docx","pdf","xlsx");
+        FileOperation.OpenSingleFile(out cachewordpath, out string name, "txt", "doc", "docx", "pdf", "xlsx");
 
         var ext = FileOperation.GetExt(cachewordpath);
         wordPath = string.Format("{0}.{1}", name, ext);
         Debug.Log("wordPath: " + wordPath);
-        inputWord.text = cachewordpath;
+        inputWord.text = name;
     }
     public void OnTypeChange(int value)
     {
-        type = (ModelType)(value+1);
+        type = (ModelType)(value + 1);
     }
     public void Back()
     {

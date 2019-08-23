@@ -43,7 +43,7 @@ public class AlterPsd : UIWindow
             else
             {
             UserManager.Instance.AlterPassword(inputPsd.text);
-                isValid = true;
+            isValid = true;
             }
 
         }

@@ -21,20 +21,22 @@ public class ConfirmWnd : UIWindow
 {
     private Button _confirmbtn;
     private Text _content;
-
+    private Button closeBtn;
     public override void OnOpen(params object[] datas)
     {
         base.OnOpen(datas);
 
         _confirmbtn = _transform.Find("Root/Confirm").gameObject.GetComponent<Button>();
         _content = _transform.Find("Root/Word").gameObject.GetComponent<Text>();
-
+        closeBtn = _transform.Find("Root/closeBtn").gameObject.GetComponent<Button>();
         _confirmbtn.onClick.AddListener(OnClose);
         _content.text = datas[0].ToString();
+        closeBtn.onClick.AddListener(OnClose);
     }
 
     public override void OnClose()
     {
         base.OnClose();
     }
+    
 }
