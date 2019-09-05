@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class ModelEditBar : UIBar
@@ -101,6 +102,8 @@ public class ModelEditBar : UIBar
     }
     public void Quit()
     {
-        Application.Quit();
+        // Application.Quit();
+        SceneManager.LoadScene(Constant.LoginSceneName);
+
     }
 }
