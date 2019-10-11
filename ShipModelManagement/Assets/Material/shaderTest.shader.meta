@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: a096afacf72ea76468013f32777f879b
+ShaderImporter:
+  externalObjects: {}
+  defaultTextures:
+  - _MainTex: {instanceID: 0}
+  - _VignetteTex: {fileID: 2800000, guid: 76955a8322fcb59418b1474a1b7a8177, type: 3}
+  - _ScanLineTileTex: {fileID: 2800000, guid: 42a41f90d5b9e5d4ea19d73f128b5b22, type: 3}
+  - _NoiseTex: {fileID: 2800000, guid: 0a152b63385e26141b4ed2501afcc34e, type: 3}
+  nonModifiableTextures: []
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

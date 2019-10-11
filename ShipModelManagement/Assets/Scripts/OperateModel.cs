@@ -60,4 +60,14 @@ public class OperateModel : MonoBehaviour
          //   this.transform.Rotate(Vector3.up , Time.deltaTime * speed,Space.World);
         }
     }
+    public void TopView()
+    {
+        transform.localEulerAngles = new Vector3(-90,90,-90);
+        transform.localScale = new Vector3(2, 2, 2);
+    }
+    public void FrontView()
+    {
+        transform.localEulerAngles = bAngel;
+        transform.localScale = new Vector3(2, 2, 2);
+    }
 }
